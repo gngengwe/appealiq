@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
 
 const questions = [
@@ -38,7 +38,7 @@ const questions = [
   {
     n: 5, blocking: true, impact: 5,
     category: 'Business Model',
-    question: 'If the first user is an attorney using Appeal-IQ on behalf of actual clients, does that create a duty of care or malpractice exposure that flows back to us?',
+    question: 'If the first user is an attorney using ClearIQ on behalf of actual clients, does that create a duty of care or malpractice exposure that flows back to us?',
     state: 'Not addressed anywhere in the product or any legal document.',
     owner: 'Attorney',
     risk: 'If an attorney submits an AI-assisted appeal based on a materially incorrect denial analysis and the appeal fails, there is a potential professional negligence chain. The ToS must include an explicit limitation of liability clause. Do not run a real user session without this.',
@@ -55,7 +55,7 @@ const questions = [
     n: 7, blocking: true, impact: 5,
     category: 'Technical Infrastructure',
     question: 'Is the app deployed on HTTPS with a real domain before we invite a real user — is app.appealiq.ngengwe.com live on Cloudflare Pages?',
-    state: 'Cloudflare Pages is configured for the landing page. The appeal-iq-app repo is on GitHub but not yet connected to Cloudflare Pages. app.appealiq.ngengwe.com DNS is not confirmed live.',
+    state: 'Cloudflare Pages is configured for the landing page. The ClearIQ-app repo is on GitHub but not yet connected to Cloudflare Pages. app.appealiq.ngengwe.com DNS is not confirmed live.',
     owner: 'Engineer',
     risk: null,
   },
@@ -167,7 +167,7 @@ const questions = [
   {
     n: 21, blocking: false, impact: 4,
     category: 'Legal & Compliance',
-    question: 'Should Appeal-IQ maintain an audit log of what AI suggested vs. what the attorney actually submitted — for malpractice defense purposes?',
+    question: 'Should ClearIQ maintain an audit log of what AI suggested vs. what the attorney actually submitted — for malpractice defense purposes?',
     state: 'No audit logging. The draft is editable plain text with no version history.',
     owner: 'Attorney / Business-Legal',
     risk: 'If an attorney is sued for a bad appeal, they may want to show the AI flagged missing facts and they acted on them. An immutable audit trail could be a selling point, not just a compliance requirement. Consider draft snapshots in v2.',
@@ -249,11 +249,11 @@ const deferLines = notBlocking.map(q =>
   `[${q.category} — Impact ${q.impact}/5]\nQ${String(q.n).padStart(2,'0')}: ${q.question}\nCurrent state: ${q.state}${q.risk ? `\nRisk note: ${q.risk}` : ''}`
 ).join('\n\n');
 
-const pasteText = `APPEAL-IQ — PRE-FIRST-USER RESEARCH QUESTIONS
+const pasteText = `ClearIQ — PRE-FIRST-USER RESEARCH QUESTIONS
 ==============================================
 
 CONTEXT
-Appeal-IQ is an AI-assisted health insurance appeal preparation workspace for legal-medical teams (attorneys, patient advocates, case managers). The MVP is fully built: 6 workspace steps (denial analysis, intake & interview, appeal strength map, argument builder, appeal draft, review checklist), 4 AI API routes powered by Claude claude-sonnet-4-6, localStorage persistence, no auth, no backend. The target milestone is: a working session with a real legal-medical user on real (non-PHI test) appeals.
+ClearIQ is an AI-assisted health insurance appeal preparation workspace for legal-medical teams (attorneys, patient advocates, case managers). The MVP is fully built: 6 workspace steps (denial analysis, intake & interview, appeal strength map, argument builder, appeal draft, review checklist), 4 AI API routes powered by Claude claude-sonnet-4-6, localStorage persistence, no auth, no backend. The target milestone is: a working session with a real legal-medical user on real (non-PHI test) appeals.
 
 WHAT WE NEED FROM YOU
 For each question below, research and provide:
@@ -285,8 +285,8 @@ END OF QUESTIONS
 ---
 
 <Layout
-  title="Discovery Framework — Appeal-IQ Internal"
-  description="Pre-first-user decision framework for Appeal-IQ."
+  title="Discovery Framework — ClearIQ Internal"
+  description="Pre-first-user decision framework for ClearIQ."
   noindex={true}
 >
   <div class="page">
@@ -514,7 +514,7 @@ END OF QUESTIONS
 
     <footer class="page-footer">
       <div class="container">
-        <span>Appeal-IQ · Internal use only · Not for public distribution</span>
+        <span>ClearIQ · Internal use only · Not for public distribution</span>
       </div>
     </footer>
 

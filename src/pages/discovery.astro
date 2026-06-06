@@ -1,0 +1,672 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const questions = [
+  // ── BLOCKING: YES ──────────────────────────────────────────────────────────
+  {
+    n: 1, blocking: true, impact: 5,
+    category: 'Data & Privacy',
+    question: 'When a user runs Denial Analysis or Extract Facts, case content is sent to the Anthropic API — are users informed of this, and is Anthropic an acceptable data processor for their cases?',
+    state: 'API key is server-side only. No disclosure exists in the app. The PHI disclaimer warns against entering real PHI but does not explain that content is transmitted to a third party.',
+    owner: 'Attorney / Business-Legal',
+    risk: 'Even de-identified case content sent to a third-party AI provider may require disclosure under firm data policies, bar association ethics rules, or client retainer agreements. Anthropic\'s API terms do not include a BAA. Minimum action: add a prominent pre-session disclosure explaining content is transmitted to Anthropic\'s API.',
+  },
+  {
+    n: 2, blocking: true, impact: 5,
+    category: 'Legal & Compliance',
+    question: 'Does generating appeal arguments and drafting appeal letters — even with [ATTORNEY REVIEW] flags — constitute the unauthorized practice of law if a non-attorney uses the app?',
+    state: 'The WhoFor section on the landing page includes Patient Advocates and Case Managers (non-attorneys). The app generates structured legal arguments.',
+    owner: 'Attorney',
+    risk: 'UPL rules vary by state but are broadly construed. Decision required: either restrict first users to licensed attorneys only, or obtain a legal opinion on whether the "AI tool, not legal advice" framing is sufficient in target jurisdictions before exposing non-attorney personas.',
+  },
+  {
+    n: 3, blocking: true, impact: 5,
+    category: 'Legal & Compliance',
+    question: 'Is the current [ATTORNEY REVIEW] flag sufficient legal protection, or do we need a full disclaimer screen, Terms of Service, and explicit acknowledgment before the app is usable?',
+    state: '[ATTORNEY REVIEW] labels are embedded in AI outputs. A "Prototype — not for real PHI" banner exists in AppNav. No ToS, no acknowledgment gate, and no Privacy Policy exist.',
+    owner: 'Attorney',
+    risk: 'Inline flags are not legally equivalent to an acknowledged disclaimer. Before a real user session: (a) one-page Terms of Use disclaiming legal advice, (b) explicit user acknowledgment (checkbox or click-through), (c) Privacy Policy describing data handling.',
+  },
+  {
+    n: 4, blocking: true, impact: 5,
+    category: 'Business Model',
+    question: 'Is the first user session paid, covered by an NDA, or a free research session — and does the answer change our liability exposure?',
+    state: 'No commercial relationship defined. No NDA template exists.',
+    owner: 'Business-Legal',
+    risk: 'A paid engagement may trigger different regulatory obligations than a free research session. Recommendation: first session should be NDA-covered research — explicitly framed as prototype evaluation, not a commercial service. Draft a one-page NDA before outreach.',
+  },
+  {
+    n: 5, blocking: true, impact: 5,
+    category: 'Business Model',
+    question: 'If the first user is an attorney using Appeal-IQ on behalf of actual clients, does that create a duty of care or malpractice exposure that flows back to us?',
+    state: 'Not addressed anywhere in the product or any legal document.',
+    owner: 'Attorney',
+    risk: 'If an attorney submits an AI-assisted appeal based on a materially incorrect denial analysis and the appeal fails, there is a potential professional negligence chain. The ToS must include an explicit limitation of liability clause. Do not run a real user session without this.',
+  },
+  {
+    n: 6, blocking: true, impact: 5,
+    category: 'AI & Accuracy',
+    question: 'Has the denial analysis AI output been validated against real denial letters — is it accurate enough that an attorney won\'t be misled by a confident-sounding wrong answer?',
+    state: 'The API route exists and returns structured JSON. It has not been tested against real denial letters. Claude is instructed to act as an "expert appeal analyst."',
+    owner: 'Product / Attorney',
+    risk: 'An attorney who acts on a confidently-wrong AI-extracted appeal deadline could file late. Before session 1: run the denial analysis route against at least 5 real denial letters and have an appeal-experienced person validate the outputs. Document what it gets wrong.',
+  },
+  {
+    n: 7, blocking: true, impact: 5,
+    category: 'Technical Infrastructure',
+    question: 'Is the app deployed on HTTPS with a real domain before we invite a real user — is app.appealiq.ngengwe.com live on Cloudflare Pages?',
+    state: 'Cloudflare Pages is configured for the landing page. The appeal-iq-app repo is on GitHub but not yet connected to Cloudflare Pages. app.appealiq.ngengwe.com DNS is not confirmed live.',
+    owner: 'Engineer',
+    risk: null,
+  },
+  {
+    n: 8, blocking: true, impact: 4,
+    category: 'Data & Privacy',
+    question: 'localStorage keeps data on the user\'s device — but if they clear their browser cache between sessions, all matters are lost with no warning. Do we handle this?',
+    state: 'No warning, no export, no backup. The workspace dashboard shows matters from localStorage only.',
+    owner: 'Engineer / Product',
+    risk: 'A user who loses a partially-built matter the night before an appeal deadline will not trust the product. Minimum action: add a persistent banner warning that data is stored in the browser and provide an "Export all matters as JSON" backup button before session 1.',
+  },
+  {
+    n: 9, blocking: true, impact: 4,
+    category: 'Technical Infrastructure',
+    question: 'What happens if the Anthropic API is down or returns an error during a real user session — does the app fail gracefully or show a broken state?',
+    state: 'API routes return { error } with status 500. Panel components show a red error message. No retry logic, no queue, no offline fallback. AI steps are not skippable.',
+    owner: 'Engineer',
+    risk: null,
+  },
+  {
+    n: 10, blocking: true, impact: 4,
+    category: 'UX & Workflow',
+    question: 'Does the 6-step linear flow (denial → intake → strength → arguments → draft → review) match how real appeal attorneys actually work, or do they jump non-linearly?',
+    state: 'Steps are fixed in the sidebar. WorkspaceShell allows navigation to any step at any time — not technically enforced linear — but the UX implies sequence.',
+    owner: 'Product / Open',
+    risk: null,
+  },
+  {
+    n: 11, blocking: true, impact: 4,
+    category: 'UX & Workflow',
+    question: 'If a user navigates between steps, do unsaved form changes persist — or does navigating away silently discard edits in DenialPanel, IntakePanel, and ArgumentBuilder?',
+    state: 'All panels use local useState for draft text. The Save button writes to localStorage. Navigating away without saving silently discards changes. No dirty-state warning exists.',
+    owner: 'Engineer',
+    risk: null,
+  },
+  {
+    n: 12, blocking: true, impact: 4,
+    category: 'Product',
+    question: 'Can a user get the final appeal letter out of the app — is copy-to-clipboard sufficient, or do they need a formatted PDF or DOCX export?',
+    state: 'DraftPanel has a "Copy to Clipboard" button. No PDF/DOCX export exists. Draft is displayed in an editable monospace textarea.',
+    owner: 'Product / Open',
+    risk: 'Legal professionals submit appeals via fax, certified mail, or portal upload — all requiring a formatted document. Copy-paste into Word is tolerable for a first session but must be validated. Ask before the session: "What format do you need the output in?"',
+  },
+  {
+    n: 13, blocking: true, impact: 4,
+    category: 'AI & Accuracy',
+    question: 'What happens when any AI route returns malformed JSON — does the app catch and surface it cleanly, or does it throw a runtime error in the panel?',
+    state: 'Some API routes use JSON.parse() without try/catch for AI responses. Claude occasionally wraps JSON in markdown code fences, which breaks JSON.parse(). Panel components catch fetch errors but not parse failures.',
+    owner: 'Engineer',
+    risk: null,
+  },
+  {
+    n: 14, blocking: true, impact: 4,
+    category: 'Legal & Compliance',
+    question: 'Do we need to communicate a data retention and deletion policy — specifically, what happens to case data and how long we hold anything on our servers?',
+    state: 'localStorage keeps data client-side indefinitely. Anthropic API calls send content to Anthropic\'s servers — their retention policy applies. We have no server-side storage. No policy document exists.',
+    owner: 'Business-Legal',
+    risk: 'Minimum action: one paragraph in ToS explaining (a) case data is stored in the user\'s browser only, (b) AI features transmit content to Anthropic (link their privacy policy), (c) we do not retain case data on our servers.',
+  },
+  {
+    n: 15, blocking: true, impact: 3,
+    category: 'Go-to-Market',
+    question: 'Do we have a mechanism to collect structured feedback from the first user during and after the session — or are we relying on informal notes?',
+    state: 'Nothing. No in-app feedback widget, no post-session survey, no session recording consent.',
+    owner: 'Product',
+    risk: null,
+  },
+  {
+    n: 16, blocking: true, impact: 3,
+    category: 'Data & Privacy',
+    question: 'Does the app work when the user opens it on a different computer or browser — and do we tell them upfront that it doesn\'t?',
+    state: 'localStorage is browser-specific. A user who creates matters on Chrome cannot access them on Firefox or another machine. No warning exists.',
+    owner: 'Engineer / Product',
+    risk: null,
+  },
+  // ── BLOCKING: NO ───────────────────────────────────────────────────────────
+  {
+    n: 17, blocking: false, impact: 5,
+    category: 'Business Model',
+    question: 'Do we charge per matter, per seat (user), or per firm — and does the answer fundamentally change our data model?',
+    state: 'No pricing exists. localStorage means there is no per-matter server-side tracking.',
+    owner: 'Business-Legal / Product',
+    risk: null,
+  },
+  {
+    n: 18, blocking: false, impact: 5,
+    category: 'Technical Infrastructure',
+    question: 'When do we introduce auth — and what is the minimum viable auth setup (magic link, Google OAuth, or firm SSO)?',
+    state: 'No auth. Explicitly deferred for v1 prototype.',
+    owner: 'Engineer / Product',
+    risk: null,
+  },
+  {
+    n: 19, blocking: false, impact: 4,
+    category: 'AI & Accuracy',
+    question: 'Should we disclose which AI model processes case content (claude-sonnet-4-6) and on what basis it makes classifications?',
+    state: 'Not disclosed anywhere in the app. The model name is hardcoded in API routes.',
+    owner: 'Product / Business-Legal',
+    risk: 'Some law firms and healthcare orgs have approved vendor lists and model-specific policies. Disclosure builds trust and avoids surprises.',
+  },
+  {
+    n: 20, blocking: false, impact: 4,
+    category: 'Product',
+    question: 'Should the app support multiple users on the same matter (attorney + case manager both editing), or is it strictly single-user per matter?',
+    state: 'localStorage is per-browser. No concept of sharing or collaboration. Single-user only.',
+    owner: 'Product / Open',
+    risk: null,
+  },
+  {
+    n: 21, blocking: false, impact: 4,
+    category: 'Legal & Compliance',
+    question: 'Should Appeal-IQ maintain an audit log of what AI suggested vs. what the attorney actually submitted — for malpractice defense purposes?',
+    state: 'No audit logging. The draft is editable plain text with no version history.',
+    owner: 'Attorney / Business-Legal',
+    risk: 'If an attorney is sued for a bad appeal, they may want to show the AI flagged missing facts and they acted on them. An immutable audit trail could be a selling point, not just a compliance requirement. Consider draft snapshots in v2.',
+  },
+  {
+    n: 22, blocking: false, impact: 4,
+    category: 'AI & Accuracy',
+    question: 'Should the AI extract facts from uploaded PDFs (scanned denial letters, medical records) or is text-paste the only input method?',
+    state: 'All input is text-paste only. No file upload exists.',
+    owner: 'Product / Engineer',
+    risk: null,
+  },
+  {
+    n: 23, blocking: false, impact: 3,
+    category: 'Product',
+    question: 'What is the "done" state for a completed matter — does it archive, export to a file, or stay in the dashboard forever?',
+    state: 'Matters persist in localStorage indefinitely. ReviewChecklist has a finalReviewComplete flag but nothing happens when it is checked.',
+    owner: 'Product',
+    risk: null,
+  },
+  {
+    n: 24, blocking: false, impact: 3,
+    category: 'UX & Workflow',
+    question: 'Should the StrengthMap include a confidence score or visual heat map across the 6 categories — or is drag-and-drop categorization sufficient as the orientation view?',
+    state: 'StrengthMap shows fact counts per category and a summary bar. No scoring or heat map.',
+    owner: 'Product / Open',
+    risk: null,
+  },
+  {
+    n: 25, blocking: false, impact: 3,
+    category: 'Go-to-Market',
+    question: 'Who is the first user — do we already have a specific attorney or advocate in mind, or do we need to recruit one?',
+    state: 'Not defined. No outreach has been drafted.',
+    owner: 'Open / Business-Legal',
+    risk: null,
+  },
+  {
+    n: 26, blocking: false, impact: 2,
+    category: 'Technical Infrastructure',
+    question: 'Do we need rate limiting on AI API routes to prevent runaway costs if someone hammer-clicks Analyze or Generate Draft repeatedly?',
+    state: 'No rate limiting. Buttons are disabled during loading state (client-side guard only). No server-side guard.',
+    owner: 'Engineer',
+    risk: null,
+  },
+  {
+    n: 27, blocking: false, impact: 2,
+    category: 'Go-to-Market',
+    question: 'Is app.appealiq.ngengwe.com the right domain for the first real user session — or does it need to be under a more professional standalone domain?',
+    state: 'appealiq.ngengwe.com is the landing page domain. app.appealiq.ngengwe.com is the target app domain. Not yet live.',
+    owner: 'Business-Legal / Product',
+    risk: null,
+  },
+];
+
+const blocking = questions.filter(q => q.blocking);
+const notBlocking = questions.filter(q => !q.blocking);
+
+const categoryColors: Record<string, { bg: string; text: string }> = {
+  'Data & Privacy':           { bg: '#EFF6FF', text: '#1D4ED8' },
+  'Legal & Compliance':       { bg: '#FEF3C7', text: '#92400E' },
+  'Business Model':           { bg: '#F5F3FF', text: '#5B21B6' },
+  'AI & Accuracy':            { bg: '#ECFDF5', text: '#065F46' },
+  'Technical Infrastructure': { bg: '#F0F9FF', text: '#0C4A6E' },
+  'UX & Workflow':            { bg: '#FFF7ED', text: '#9A3412' },
+  'Product':                  { bg: '#F0FDFA', text: '#134E4A' },
+  'Go-to-Market':             { bg: '#FDF4FF', text: '#6B21A8' },
+};
+
+function stars(n: number): string {
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+---
+
+<Layout
+  title="Discovery Framework — Appeal-IQ Internal"
+  description="Pre-first-user decision framework for Appeal-IQ."
+  noindex={true}
+>
+  <div class="page">
+
+    <!-- Internal banner -->
+    <div class="internal-banner">
+      <span class="internal-dot"></span>
+      Internal document — not indexed, not linked from nav
+    </div>
+
+    <!-- Header -->
+    <header class="page-header">
+      <div class="container">
+        <div class="header-logo">
+          <span class="logo-mark">A</span>
+          <span class="logo-text">Appeal<span style="color:var(--teal)">-IQ</span></span>
+        </div>
+        <h1>Pre-First-User Discovery Framework</h1>
+        <p class="header-sub">
+          Every decision we must make before the first working session with a real legal-medical user.
+          27 questions across 8 categories, sorted by blocking status then impact.
+        </p>
+        <div class="header-meta">
+          <span class="meta-chip meta-blocking">16 Blocking</span>
+          <span class="meta-chip meta-defer">11 Deferrable</span>
+          <span class="meta-chip meta-neutral">8 Categories</span>
+          <span class="meta-chip meta-neutral">Generated June 2026</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+
+      <!-- Rubric -->
+      <section class="rubric-section">
+        <div class="section-label">Impact Score Rubric</div>
+        <div class="rubric-grid">
+          {[
+            ['5', 'Shapes architecture, business model, or legal exposure'],
+            ['4', 'Shapes UX or user trust significantly'],
+            ['3', 'Shapes one feature or workflow'],
+            ['2', 'Quality-of-life improvement'],
+            ['1', 'Cosmetic or deferrable'],
+          ].map(([n, desc]) => (
+            <div class="rubric-row">
+              <span class={`rubric-stars rubric-stars--${n}`}>{stars(parseInt(n))} <strong>{n}/5</strong></span>
+              <span class="rubric-desc">{desc}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- BLOCKING: YES -->
+      <section class="qs-section">
+        <div class="section-divider blocking">
+          <div class="divider-badge blocking">Blocking — YES</div>
+          <p class="divider-sub">These 16 questions must be answered before any real user touches the app.</p>
+        </div>
+
+        <div class="qs-list">
+          {blocking.map(q => {
+            const cat = categoryColors[q.category] || { bg: '#F8F7F4', text: '#1A2535' };
+            return (
+              <article class="q-card blocking-card">
+                <div class="q-card-header">
+                  <div class="q-number">Q{String(q.n).padStart(2, '0')}</div>
+                  <div class="q-category-badge" style={`background:${cat.bg};color:${cat.text}`}>
+                    {q.category}
+                  </div>
+                  <div class="q-blocking-badge blocking">Blocking</div>
+                </div>
+
+                <h3 class="q-question">{q.question}</h3>
+
+                <div class="q-meta-row">
+                  <div class="q-meta-item">
+                    <span class="q-meta-label">Impact</span>
+                    <span class={`q-stars q-stars--${q.impact}`}>{stars(q.impact)}</span>
+                    <span class="q-impact-num">{q.impact}/5</span>
+                  </div>
+                  <div class="q-meta-item">
+                    <span class="q-meta-label">Owner</span>
+                    <span class="q-owner">{q.owner}</span>
+                  </div>
+                </div>
+
+                <div class="q-state">
+                  <span class="q-state-label">Current state</span>
+                  <p class="q-state-body">{q.state}</p>
+                </div>
+
+                {q.risk && (
+                  <div class="q-risk">
+                    <span class="q-risk-icon">⚠</span>
+                    <p>{q.risk}</p>
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- BLOCKING: NO -->
+      <section class="qs-section">
+        <div class="section-divider defer">
+          <div class="divider-badge defer">Not Blocking — Deferrable</div>
+          <p class="divider-sub">These 11 questions shape v2 architecture, pricing, and go-to-market. Answer them before building the next layer.</p>
+        </div>
+
+        <div class="qs-list">
+          {notBlocking.map(q => {
+            const cat = categoryColors[q.category] || { bg: '#F8F7F4', text: '#1A2535' };
+            return (
+              <article class="q-card">
+                <div class="q-card-header">
+                  <div class="q-number muted">Q{String(q.n).padStart(2, '0')}</div>
+                  <div class="q-category-badge" style={`background:${cat.bg};color:${cat.text}`}>
+                    {q.category}
+                  </div>
+                  <div class="q-blocking-badge defer">Deferrable</div>
+                </div>
+
+                <h3 class="q-question">{q.question}</h3>
+
+                <div class="q-meta-row">
+                  <div class="q-meta-item">
+                    <span class="q-meta-label">Impact</span>
+                    <span class={`q-stars q-stars--${q.impact}`}>{stars(q.impact)}</span>
+                    <span class="q-impact-num">{q.impact}/5</span>
+                  </div>
+                  <div class="q-meta-item">
+                    <span class="q-meta-label">Owner</span>
+                    <span class="q-owner">{q.owner}</span>
+                  </div>
+                </div>
+
+                <div class="q-state">
+                  <span class="q-state-label">Current state</span>
+                  <p class="q-state-body">{q.state}</p>
+                </div>
+
+                {q.risk && (
+                  <div class="q-risk">
+                    <span class="q-risk-icon">⚠</span>
+                    <p>{q.risk}</p>
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- Summary -->
+      <section class="summary-section">
+        <div class="section-label">Summary</div>
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Priority bucket</th>
+              <th>Count</th>
+              <th>Threshold to clear</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Blocking — Impact 5', '7', 'All must be resolved'],
+              ['Blocking — Impact 4', '6', 'All must be resolved'],
+              ['Blocking — Impact 3', '3', 'Should be resolved'],
+              ['Non-blocking — Impact 5', '2', 'Decide before building auth / backend'],
+              ['Non-blocking — Impact 4', '3', 'Validate or decide during session 1'],
+              ['Non-blocking — Impact 2–3', '6', 'Post-session backlog'],
+            ].map(([bucket, count, action]) => (
+              <tr>
+                <td>{bucket}</td>
+                <td class="count-cell">{count}</td>
+                <td class="action-cell">{action}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div class="critical-path">
+          <div class="section-label">Critical path — 4 decisions that could end the project</div>
+          {[
+            'Get a ToS + disclaimer acknowledgment gate live — no exceptions.',
+            'Add Anthropic API transmission disclosure — no exceptions.',
+            'Validate denial analysis accuracy on real denial letters with someone who knows appeals.',
+            'Add matter export (JSON backup) so browser data loss does not kill the session.',
+          ].map((item, i) => (
+            <div class="crit-item">
+              <span class="crit-num">{i + 1}</span>
+              <span class="crit-text">{item}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="page-footer">
+      <div class="container">
+        <span>Appeal-IQ · Internal use only · Not for public distribution</span>
+      </div>
+    </footer>
+
+  </div>
+</Layout>
+
+<style>
+  .page { background: var(--ivory); min-height: 100vh; }
+
+  /* ── Internal banner ──────────────────────────────────── */
+  .internal-banner {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--navy-dark); color: rgba(255,255,255,0.5);
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.04em;
+    text-align: center; justify-content: center;
+    padding: 8px 20px;
+  }
+  .internal-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal); flex-shrink: 0;
+  }
+
+  /* ── Page header ─────────────────────────────────────── */
+  .page-header {
+    background: var(--navy-dark);
+    padding: 64px 0 56px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .header-logo {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .logo-mark {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: #1A2535; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-serif); font-size: 1.1rem; color: var(--teal);
+  }
+  .logo-text {
+    font-family: var(--font-sans); font-weight: 600;
+    font-size: 1rem; color: white; letter-spacing: -0.01em;
+  }
+  .page-header h1 {
+    font-family: var(--font-serif); font-size: clamp(1.9rem, 4vw, 2.8rem);
+    color: white; line-height: 1.15; margin-bottom: 16px;
+  }
+  .header-sub {
+    color: rgba(255,255,255,0.55); font-size: 1rem;
+    max-width: 640px; line-height: 1.65; margin-bottom: 28px;
+  }
+  .header-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+  .meta-chip {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em;
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .meta-blocking { background: rgba(239,68,68,0.15); color: #FCA5A5; }
+  .meta-defer    { background: rgba(26,142,168,0.15); color: var(--teal); }
+  .meta-neutral  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.45); }
+
+  /* ── Rubric ──────────────────────────────────────────── */
+  .rubric-section { padding: 48px 0 0; }
+  .rubric-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .rubric-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 10px 16px; background: white; border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .rubric-stars { font-size: 0.9rem; white-space: nowrap; min-width: 120px; }
+  .rubric-stars--5 { color: #DC2626; }
+  .rubric-stars--4 { color: #D97706; }
+  .rubric-stars--3 { color: #0891B2; }
+  .rubric-stars--2 { color: #16A34A; }
+  .rubric-stars--1 { color: #94A3B8; }
+  .rubric-desc { font-size: 0.875rem; color: var(--text-mid); }
+
+  /* ── Section dividers ────────────────────────────────── */
+  .qs-section { padding: 56px 0 0; }
+  .section-divider {
+    border-radius: var(--radius-lg); padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .section-divider.blocking { background: #7F1D1D; }
+  .section-divider.defer    { background: var(--navy-mid); }
+  .divider-badge {
+    display: inline-block; font-weight: 700; font-size: 0.8rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 8px;
+  }
+  .divider-badge.blocking { background: rgba(239,68,68,0.25); color: #FCA5A5; }
+  .divider-badge.defer    { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+  .divider-sub { color: rgba(255,255,255,0.55); font-size: 0.9rem; }
+
+  /* ── Question cards ──────────────────────────────────── */
+  .qs-list { display: flex; flex-direction: column; gap: 20px; }
+
+  .q-card {
+    background: white; border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden; box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s;
+  }
+  .q-card:hover { box-shadow: var(--shadow-md); }
+  .q-card.blocking-card { border-left: 4px solid #DC2626; }
+
+  .q-card-header {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    padding: 16px 20px 0;
+  }
+  .q-number {
+    font-family: var(--font-sans); font-weight: 700; font-size: 0.75rem;
+    letter-spacing: 0.08em; color: var(--teal); min-width: 28px;
+  }
+  .q-number.muted { color: var(--text-faint); }
+
+  .q-category-badge {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 100px;
+  }
+  .q-blocking-badge {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 100px;
+    margin-left: auto;
+  }
+  .q-blocking-badge.blocking { background: #FEE2E2; color: #991B1B; }
+  .q-blocking-badge.defer    { background: #F0F9FF; color: #0C4A6E; }
+
+  .q-question {
+    font-family: var(--font-sans); font-size: 1rem; font-weight: 600;
+    color: var(--navy-dark); line-height: 1.5;
+    padding: 14px 20px 0;
+  }
+
+  .q-meta-row {
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    padding: 12px 20px; background: var(--ivory); border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border); margin-top: 14px;
+  }
+  .q-meta-item { display: flex; align-items: center; gap: 8px; }
+  .q-meta-label {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-faint);
+  }
+  .q-stars { font-size: 0.85rem; }
+  .q-stars--5 { color: #DC2626; }
+  .q-stars--4 { color: #D97706; }
+  .q-stars--3 { color: #0891B2; }
+  .q-stars--2 { color: #16A34A; }
+  .q-stars--1 { color: #94A3B8; }
+  .q-impact-num { font-size: 0.75rem; font-weight: 600; color: var(--text-mid); }
+  .q-owner { font-size: 0.8rem; font-weight: 600; color: var(--teal); }
+
+  .q-state { padding: 14px 20px; }
+  .q-state-label {
+    display: block; font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-faint); margin-bottom: 6px;
+  }
+  .q-state-body { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; }
+
+  .q-risk {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: #FFFBEB; border-top: 1px solid #FDE68A;
+    padding: 14px 20px;
+  }
+  .q-risk-icon { font-size: 1rem; color: #D97706; flex-shrink: 0; margin-top: 1px; }
+  .q-risk p { font-size: 0.85rem; color: #92400E; line-height: 1.6; }
+
+  /* ── Summary ─────────────────────────────────────────── */
+  .summary-section { padding: 56px 0 80px; }
+  .summary-table {
+    width: 100%; border-collapse: collapse;
+    background: white; border-radius: var(--radius-lg);
+    overflow: hidden; box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border); margin-top: 12px; margin-bottom: 40px;
+  }
+  .summary-table th {
+    background: var(--navy-dark); color: rgba(255,255,255,0.8);
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; text-align: left; padding: 14px 18px;
+  }
+  .summary-table td {
+    padding: 13px 18px; font-size: 0.875rem; color: var(--text-mid);
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr:nth-child(even) td { background: var(--ivory); }
+  .count-cell { font-weight: 700; color: var(--teal); text-align: center; }
+  .action-cell { color: var(--text-dark); }
+
+  .critical-path { margin-top: 8px; }
+  .crit-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 18px; background: white;
+    border: 1px solid #FECACA; border-radius: var(--radius);
+    margin-top: 10px;
+  }
+  .crit-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: #DC2626; color: white;
+    font-size: 0.75rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .crit-text { font-size: 0.9rem; color: #991B1B; font-weight: 500; line-height: 1.5; }
+
+  /* ── Footer ──────────────────────────────────────────── */
+  .page-footer {
+    background: var(--navy-dark);
+    padding: 20px 0;
+    text-align: center;
+    color: rgba(255,255,255,0.25);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Responsive ──────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .q-card-header { gap: 8px; }
+    .q-blocking-badge { margin-left: 0; }
+    .q-meta-row { gap: 14px; }
+    .summary-table { font-size: 0.8rem; }
+    .summary-table th, .summary-table td { padding: 10px 12px; }
+  }
+</style>

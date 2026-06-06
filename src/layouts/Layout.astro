@@ -1,0 +1,242 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = "Appeal-IQ — Health Insurance Appeal Intelligence",
+  description = "Appeal-IQ is an AI-assisted appeal-preparation workspace that helps legal-medical teams transform health insurance denials into structured, attorney-reviewable appeal packages.",
+  canonicalUrl = "https://appealiq.ngengwe.com",
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+</head>
+<body>
+  <slot />
+</body>
+</html>
+
+<style is:global>
+  /* ─── Reset ─────────────────────────────────────────── */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ─── Design Tokens ──────────────────────────────────── */
+  :root {
+    /* Colors */
+    --navy-dark:   #0A1628;
+    --navy-mid:    #1C3154;
+    --navy-light:  #2D4B78;
+    --teal:        #1A8EA8;
+    --teal-dark:   #137A92;
+    --teal-light:  #E3F3F7;
+    --teal-xlight: #F0FAFC;
+    --ivory:       #F8F7F4;
+    --ivory-mid:   #F0EEE9;
+    --white:       #FFFFFF;
+    --text-dark:   #1A2535;
+    --text-mid:    #4A5568;
+    --text-muted:  #718096;
+    --text-faint:  #94A3B8;
+    --border:      #E2E8F0;
+    --border-mid:  #CBD5E1;
+
+    /* Typography */
+    --font-serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+    --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Spacing */
+    --section-y: 100px;
+    --max-width:  1120px;
+
+    /* Border radius */
+    --radius-sm: 6px;
+    --radius:    10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    /* Shadows */
+    --shadow-sm:  0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md:  0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+    --shadow-lg:  0 12px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-xl:  0 24px 64px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.07);
+  }
+
+  /* ─── Base ───────────────────────────────────────────── */
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color-scheme: light;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--text-dark);
+    background: var(--white);
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img, svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ─── Shared Utilities ───────────────────────────────── */
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 18px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  .section-label--white {
+    color: rgba(255,255,255,0.55);
+  }
+
+  .section-label--white::before {
+    background: rgba(255,255,255,0.4);
+  }
+
+  /* ─── Buttons ────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.925rem;
+    letter-spacing: 0.01em;
+    padding: 13px 26px;
+    border-radius: var(--radius);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, transform 0.12s, box-shadow 0.18s;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: var(--white);
+    border-color: var(--teal);
+  }
+
+  .btn-primary:hover {
+    background: var(--teal-dark);
+    border-color: var(--teal-dark);
+    box-shadow: 0 6px 20px rgba(26,142,168,0.35);
+  }
+
+  .btn-outline-white {
+    background: transparent;
+    color: rgba(255,255,255,0.90);
+    border-color: rgba(255,255,255,0.30);
+  }
+
+  .btn-outline-white:hover {
+    border-color: rgba(255,255,255,0.60);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .btn-outline-teal {
+    background: transparent;
+    color: var(--teal);
+    border-color: var(--teal);
+  }
+
+  .btn-outline-teal:hover {
+    background: var(--teal-xlight);
+  }
+
+  /* ─── Responsive ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    :root {
+      --section-y: 72px;
+    }
+
+    .container {
+      padding: 0 20px;
+    }
+  }
+</style>

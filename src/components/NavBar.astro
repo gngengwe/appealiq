@@ -1,0 +1,115 @@
+---
+---
+
+<header class="nav-wrap" id="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="Appeal-IQ home">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="28" height="28" rx="6" fill="#0A1628"/>
+        <text x="14" y="20" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#1A8EA8">A</text>
+      </svg>
+      <span class="nav-logo-text">Appeal<span class="nav-logo-iq">-IQ</span></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#product" class="nav-link">How It Works</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#who-for" class="nav-link">Who It's For</a>
+    </nav>
+
+    <a href="#early-access" class="btn btn-primary nav-cta">
+      Join the Waitlist
+    </a>
+  </div>
+</header>
+
+<style>
+  .nav-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0;
+    transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+  }
+
+  .nav-wrap.scrolled {
+    background: rgba(10, 22, 40, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 66px;
+    gap: 24px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .nav-logo-text {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .nav-logo-iq {
+    color: var(--teal);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-link {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.65);
+    transition: color 0.15s;
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    color: rgba(255,255,255,0.95);
+  }
+
+  .nav-cta {
+    flex-shrink: 0;
+    padding: 10px 20px;
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  function updateNav() {
+    if (window.scrollY > 40) {
+      navbar?.classList.add('scrolled');
+    } else {
+      navbar?.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+</script>

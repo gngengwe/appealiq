@@ -1,0 +1,157 @@
+---
+const points = [
+  {
+    title: "Facts, not filler.",
+    body: "Appeal-IQ extracts and structures clinically and legally relevant facts from your actual case materials — it does not generate unsupported narrative.",
+  },
+  {
+    title: "Gaps surface early.",
+    body: "Missing physician letters, incomplete clinical documentation, and unaddressed denial arguments are identified before drafting begins — not discovered at final review.",
+  },
+  {
+    title: "Expert review stays central.",
+    body: "Every extracted fact, argument theme, and generated draft is flagged for attorney or advocate review. The workspace is built around human judgment, not around AI confidence.",
+  },
+  {
+    title: "Historical appeal memory.",
+    body: "Successful arguments, physician letter patterns, and denial-specific strategies from past appeals inform future case preparation — without starting from scratch every time.",
+  },
+];
+---
+
+<section class="notai">
+  <div class="container notai-inner">
+    <div class="notai-left">
+      <span class="section-label section-label--white">What Appeal-IQ Is</span>
+      <h2 class="notai-headline">
+        Not a writing tool.<br />
+        An appeal intelligence workspace.
+      </h2>
+      <p class="notai-body">
+        Generic AI writing tools generate text. Appeal-IQ structures your case.
+        It organizes facts, identifies missing support, surfaces legal and medical argument
+        themes, and generates editable appeal materials for expert review — with human
+        attorneys and advocates in control at every step.
+      </p>
+      <a href="#early-access" class="btn btn-primary notai-cta">
+        Join the Waitlist
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="notai-right">
+      {points.map((p) => (
+        <article class="notai-point">
+          <div class="notai-point-check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="notai-point-title">{p.title}</h3>
+            <p class="notai-point-body">{p.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .notai {
+    background: var(--navy-mid);
+    padding: var(--section-y) 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .notai::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(26,142,168,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,142,168,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .notai-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .notai-headline {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    color: var(--white);
+    margin-bottom: 22px;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .notai-body {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.60);
+    line-height: 1.78;
+    margin-bottom: 36px;
+  }
+
+  .notai-cta {
+    font-size: 0.95rem;
+  }
+
+  .notai-right {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 8px;
+  }
+
+  .notai-point {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .notai-point-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: rgba(26,142,168,0.18);
+    border: 1px solid rgba(26,142,168,0.30);
+    border-radius: 50%;
+    color: var(--teal);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .notai-point-title {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 6px;
+    letter-spacing: -0.005em;
+  }
+
+  .notai-point-body {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 840px) {
+    .notai-inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+</style>

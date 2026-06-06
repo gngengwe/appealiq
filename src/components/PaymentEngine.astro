@@ -1,0 +1,450 @@
+---
+const paymentFeatures = [
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 11l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    n: "01",
+    title: "Outcome Tracking",
+    body: "Appeal results are logged directly in the case workspace. An approved decision automatically activates the payment workflow — no manual handoff, no separate system, no delay.",
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 2v3M11 17v3M4.22 4.22l2.12 2.12M15.66 15.66l2.12 2.12M2 11h3M17 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.6"/></svg>`,
+    n: "02",
+    title: "Contingency Fee Calculation",
+    body: "For legal teams working on contingency, fee splits are calculated automatically against the approved claim amount using your firm's configured fee structures — no manual arithmetic, no spreadsheet reconciliation.",
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="6" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="15" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M6 9.5v1.5a5 5 0 005 5M16 9.5v1.5a5 5 0 01-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+    n: "03",
+    title: "Multi-Party Disbursement",
+    body: "Approved claim amounts are allocated across every party in the disbursement chain — lead counsel, co-counsel, referring advocates, medical providers, lien holders, and patient — with configurable allocation rules applied per case.",
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="3" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h16" stroke="currentColor" stroke-width="1.4"/><path d="M7 13h2M13 13h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+    n: "04",
+    title: "Remittance Reconciliation",
+    body: "Incoming EFT and ACH remittances from insurers are matched against approved claims in real time. Discrepancies — underpayments, missing payments, partial releases — are flagged automatically before they become collection problems.",
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="3" y="3" width="16" height="16" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h8M7 11h8M7 14h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+    n: "05",
+    title: "Case Payment Ledger",
+    body: "Every case maintains a complete, auditable payment record — approved claim amount, fee splits, disbursements issued, outstanding balances, lien satisfactions, and full payment history. One record, fully traceable.",
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M4 17l4-8 4 5 2-3 4 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="2" width="18" height="18" rx="2.5" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    n: "06",
+    title: "Revenue Reporting",
+    body: "Firm-level and advocate-level reporting across approved appeal revenue, pending disbursements, open balances, and payment pipeline — giving managing partners and finance teams a real-time view of where every dollar stands.",
+  },
+];
+---
+
+<section class="payment" id="payment-engine">
+  <div class="payment-bg" aria-hidden="true">
+    <div class="payment-grid-overlay"></div>
+    <div class="payment-glow-left"></div>
+    <div class="payment-glow-right"></div>
+  </div>
+
+  <div class="container">
+    <div class="payment-header">
+      <div class="payment-header-left">
+        <span class="section-label section-label--white">Payment Engine</span>
+        <h2 class="payment-headline">
+          A successful appeal<br />
+          <em>should pay automatically.</em>
+        </h2>
+        <p class="payment-body">
+          When the insurer approves, the administrative work shouldn't start over.
+          Appeal-IQ's integrated payment engine tracks outcomes, calculates fee
+          allocations, coordinates multi-party disbursements, and reconciles insurer
+          remittances — triggered automatically the moment an appeal is marked approved.
+        </p>
+        <p class="payment-body payment-body--secondary">
+          For legal-medical teams working on contingency or fee-for-service models,
+          this closes the loop that has historically required a separate billing team,
+          a separate system, and weeks of manual follow-up.
+          Appeal-IQ handles it as part of the same case workspace.
+        </p>
+      </div>
+
+      <div class="payment-header-right">
+        <div class="payment-flow">
+          <div class="payment-flow-step payment-flow-step--complete">
+            <div class="pfs-dot pfs-dot--complete" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2.5 6l2.5 2.5 4.5-4.5" stroke="#1A8EA8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="pfs-content">
+              <span class="pfs-label">Appeal filed</span>
+              <span class="pfs-sub">Package submitted to insurer</span>
+            </div>
+          </div>
+          <div class="pfs-connector" aria-hidden="true"></div>
+          <div class="payment-flow-step payment-flow-step--complete">
+            <div class="pfs-dot pfs-dot--complete" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2.5 6l2.5 2.5 4.5-4.5" stroke="#1A8EA8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="pfs-content">
+              <span class="pfs-label">Appeal approved</span>
+              <span class="pfs-sub">Insurer decision logged</span>
+            </div>
+          </div>
+          <div class="pfs-connector" aria-hidden="true"></div>
+          <div class="payment-flow-step payment-flow-step--active">
+            <div class="pfs-dot pfs-dot--active" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <circle cx="6" cy="6" r="3" fill="#1A8EA8"/>
+              </svg>
+            </div>
+            <div class="pfs-content">
+              <span class="pfs-label pfs-label--active">Payment engine activates</span>
+              <span class="pfs-sub">Fee calc, disbursement, reconciliation</span>
+            </div>
+          </div>
+          <div class="pfs-connector" aria-hidden="true"></div>
+          <div class="payment-flow-step">
+            <div class="pfs-dot" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <rect x="3" y="4.5" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M4.5 4.5V3.5a1.5 1.5 0 013 0v1" stroke="currentColor" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <div class="pfs-content">
+              <span class="pfs-label">Disbursements issued</span>
+              <span class="pfs-sub">All parties paid, ledger closed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="payment-flow-note">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <circle cx="6.5" cy="6.5" r="5.5" stroke="rgba(26,142,168,0.6)" stroke-width="1.2"/>
+            <path d="M6.5 4v3.5M6.5 9h.01" stroke="rgba(26,142,168,0.6)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          Human review is required before any disbursement is initiated.
+          The engine prepares — authorized personnel approve.
+        </div>
+      </div>
+    </div>
+
+    <div class="payment-features-grid">
+      {paymentFeatures.map((f) => (
+        <article class="payment-feature-card">
+          <div class="pfc-header">
+            <div class="pfc-icon" set:html={f.icon} />
+            <span class="pfc-n">{f.n}</span>
+          </div>
+          <h3 class="pfc-title">{f.title}</h3>
+          <p class="pfc-body">{f.body}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="payment-closer">
+      <div class="payment-closer-line" aria-hidden="true"></div>
+      <p class="payment-closer-text">
+        From patient intake and denial letter through appeal package, insurer approval,
+        and final payment disbursement — Appeal-IQ manages the complete lifecycle
+        in one structured workspace.
+      </p>
+      <div class="payment-closer-line" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .payment {
+    position: relative;
+    background: var(--navy-dark);
+    padding: var(--section-y) 0;
+    overflow: hidden;
+  }
+
+  /* Background elements */
+  .payment-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .payment-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(26,142,168,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,142,168,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .payment-glow-left {
+    position: absolute;
+    top: -10%;
+    left: -15%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, rgba(26,142,168,0.07) 0%, transparent 65%);
+  }
+
+  .payment-glow-right {
+    position: absolute;
+    bottom: -10%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(ellipse at center, rgba(45,75,120,0.20) 0%, transparent 65%);
+  }
+
+  /* Header layout */
+  .payment-header {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
+    margin-bottom: 64px;
+  }
+
+  .payment-headline {
+    font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+    color: var(--white);
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    line-height: 1.18;
+  }
+
+  .payment-headline em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .payment-body {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.58);
+    line-height: 1.78;
+  }
+
+  .payment-body--secondary {
+    margin-top: 16px;
+    color: rgba(255,255,255,0.42);
+    font-size: 0.94rem;
+  }
+
+  /* Payment flow diagram */
+  .payment-flow {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-xl);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 16px;
+  }
+
+  .payment-flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+  }
+
+  .pfs-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.25);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .pfs-dot--complete {
+    background: rgba(26,142,168,0.12);
+    border-color: rgba(26,142,168,0.30);
+  }
+
+  .pfs-dot--active {
+    background: rgba(26,142,168,0.18);
+    border-color: rgba(26,142,168,0.50);
+    box-shadow: 0 0 0 4px rgba(26,142,168,0.08);
+  }
+
+  .pfs-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .pfs-label {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.3;
+  }
+
+  .pfs-label--active {
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  .pfs-sub {
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: rgba(255,255,255,0.28);
+    line-height: 1.4;
+  }
+
+  .pfs-connector {
+    width: 1px;
+    height: 20px;
+    background: rgba(255,255,255,0.10);
+    margin-left: 13px;
+  }
+
+  .payment-flow-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: rgba(255,255,255,0.25);
+    line-height: 1.55;
+    padding: 0 4px;
+  }
+
+  .payment-flow-note svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Feature cards */
+  .payment-features-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 52px;
+  }
+
+  .payment-feature-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius-lg);
+    padding: 26px 24px 28px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .payment-feature-card:hover {
+    background: rgba(26,142,168,0.06);
+    border-color: rgba(26,142,168,0.20);
+  }
+
+  .pfc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .pfc-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(26,142,168,0.10);
+    border: 1px solid rgba(26,142,168,0.18);
+    border-radius: var(--radius);
+    color: var(--teal);
+  }
+
+  .pfc-n {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.18);
+  }
+
+  .pfc-title {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 10px;
+    letter-spacing: -0.005em;
+    line-height: 1.35;
+  }
+
+  .pfc-body {
+    font-size: 0.86rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+  }
+
+  /* Closing statement */
+  .payment-closer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .payment-closer-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .payment-closer-text {
+    font-family: var(--font-serif);
+    font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+    font-style: italic;
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    max-width: 580px;
+    flex-shrink: 0;
+    line-height: 1.65;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .payment-header {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .payment-features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .payment-closer {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .payment-closer-line {
+      width: 60px;
+      height: 1px;
+      flex: none;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .payment-features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -40,6 +40,11 @@ const steps = [
     title: "Editable Appeal Package",
     body: "A complete, formatted appeal package — cover letter, argument structure, supporting documentation index — is generated for final expert review and submission.",
   },
+  {
+    n: "09",
+    title: "Outcome & Payment Processing",
+    body: "When the insurer approves, the payment engine activates automatically — calculating fee splits, coordinating multi-party disbursements, and reconciling remittances without a separate billing workflow.",
+  },
 ];
 ---
 
@@ -115,7 +120,7 @@ const steps = [
 
   .product-steps {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0;
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
@@ -132,11 +137,11 @@ const steps = [
     transition: background 0.2s;
   }
 
-  .step:nth-child(4n) {
+  .step:nth-child(3n) {
     border-right: none;
   }
 
-  .step:nth-child(n+5) {
+  .step:nth-child(n+7) {
     border-bottom: none;
   }
 
@@ -197,7 +202,7 @@ const steps = [
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .step:nth-child(4n) {
+    .step:nth-child(3n) {
       border-right: 1px solid var(--border);
     }
 
@@ -205,8 +210,18 @@ const steps = [
       border-right: none;
     }
 
+    .step:nth-child(n+7) {
+      border-bottom: 1px solid var(--border);
+    }
+
     .step:nth-last-child(-n+2) {
       border-bottom: none;
+    }
+
+    /* last item if odd count */
+    .step:last-child {
+      border-bottom: none;
+      border-right: none;
     }
   }
 
@@ -217,6 +232,10 @@ const steps = [
 
     .step {
       border-right: none;
+    }
+
+    .step:not(:last-child) {
+      border-bottom: 1px solid var(--border);
     }
 
     .step:last-child {

@@ -112,7 +112,7 @@ import Layout from '../layouts/Layout.astro';
         <p>
           ClearIQ started as Appeal-IQ — a different product with a different scope
           and a different primary user. The pivot happened after a conversation with
-          John Lee in April 2026, and it changed almost everything.
+          John Lee on June 6, 2026, and it changed almost everything.
         </p>
 
         <div class="timeline">
@@ -175,27 +175,30 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <div class="timeline-item">
-            <div class="tl-marker tl-marker--done"></div>
+            <div class="tl-marker tl-marker--now"></div>
             <div class="tl-content">
-              <span class="tl-date">June 6, 2026</span>
+              <span class="tl-date">June 6, 2026 — Today</span>
               <h3 class="tl-heading">Appeal-IQ → ClearIQ</h3>
               <p class="tl-body">
-                The product was renamed and repositioned from the ground up.
-                New scope: the full pre-certification-to-reimbursement pipeline.
-                New primary user: billing and authorization staff.
-                New beachhead market: OBL owners and cardiologists, New York first.
+                The same day as the John conversation, the product was renamed and
+                repositioned from the ground up. New scope: the full
+                pre-certification-to-reimbursement pipeline. New primary user:
+                billing and authorization staff. New beachhead market: OBL owners
+                and cardiologists, New York first.
               </p>
               <p class="tl-body">
-                The landing page was rebuilt to reflect the new system —
+                The landing page has been rebuilt to reflect the new system —
                 nine pipeline steps, a Recovery & Reimbursement Engine, and
-                a before/after scenario section showing what authorization chaos
-                looks like in a real week at a real practice.
+                a before/after scenario showing what authorization chaos looks like
+                in a real week at a real practice. The internal discovery framework
+                has been expanded from 27 to 33 questions to capture new regulatory
+                surface from pre-auth scope: BAA obligations, pre-certification
+                licensure and agency risk, and False Claims Act implications.
               </p>
               <p class="tl-body">
-                The internal discovery framework was expanded from 27 to 33 questions
-                to capture new regulatory surface from pre-auth scope:
-                BAA obligations for pre-auth PHI, pre-certification licensure and agency risk,
-                and False Claims Act implications for authorization-assisted submissions.
+                The NDA with John's practice, the MVP scope definition with Atabong,
+                and the first user session with Sarah are the immediate next steps.
+                This is where the work is right now.
               </p>
             </div>
           </div>
@@ -369,12 +372,12 @@ import Layout from '../layouts/Layout.astro';
             <div class="team-avatar team-avatar--george">GN</div>
             <div class="team-info">
               <h3 class="team-name">George Ngengwe</h3>
-              <span class="team-role">Founder — Product, Strategy, Go-to-Market</span>
+              <span class="team-role">Product, Strategy, Go-to-Market</span>
               <p class="team-bio">
                 Building ClearIQ from product conception through first user.
                 Responsible for product design, the discovery and compliance framework,
-                stakeholder relationships, and go-to-market. Founder of HK Clearway LLC,
-                operating subsidiary of becomiNG.
+                stakeholder relationships, and go-to-market. Operating under
+                HK Clearway LLC, powered by becomiNG.
               </p>
               <a href="mailto:gngengwe@gmail.com" class="team-contact">gngengwe@gmail.com</a>
             </div>
@@ -889,6 +892,12 @@ import Layout from '../layouts/Layout.astro';
     border-color: #F59E0B;
     background: #F59E0B;
     box-shadow: 0 0 0 4px rgba(245,158,11,0.15);
+  }
+
+  .tl-marker--now {
+    border-color: var(--teal);
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgba(26,142,168,0.18);
   }
 
   .tl-date {

@@ -1,0 +1,409 @@
+---
+const before = [
+  {
+    day: "Mon",
+    event: "Build Friday's schedule. Twelve procedures confirmed across six insurers.",
+    type: "neutral",
+  },
+  {
+    day: "Tue",
+    event: "Check three insurer portals manually. Five pending authorizations — no status, no explanation, no timeline.",
+    type: "bad",
+  },
+  {
+    day: "Wed",
+    event: "Two denial letters arrive in the inbox. Start writing appeal letter one from scratch. Three hours of work, one letter sent.",
+    type: "bad",
+  },
+  {
+    day: "Thu",
+    event: "Second appeal still in draft. Three patients notified their Friday appointment is uncertain.",
+    type: "bad",
+  },
+  {
+    day: "Fri",
+    event: "Four procedures completed. Eight slots lost to authorization failures, missed appeal windows, and cases that ran out of time.",
+    type: "loss",
+  },
+];
+
+const after = [
+  {
+    day: "Mon",
+    event: "Build Friday's schedule. Twelve procedures confirmed.",
+    type: "neutral",
+  },
+  {
+    day: "Tue",
+    event: "ClearIQ flags five pending authorizations with specific documentation gaps. Pre-cert requirements filed for each.",
+    type: "good",
+  },
+  {
+    day: "Wed",
+    event: "Two denials auto-detected and classified by denial reason. Appeal letters generated, reviewed, and submitted in under 30 minutes.",
+    type: "good",
+  },
+  {
+    day: "Thu",
+    event: "Both appeals submitted. One insurer reversal confirmed same day. Missing physician note flagged three days early — requested and received.",
+    type: "good",
+  },
+  {
+    day: "Fri",
+    event: "Nine procedures completed. One case in active appeal, tracked and pending. Nothing lost to the process.",
+    type: "win",
+  },
+];
+---
+
+<section class="scenario" id="in-practice">
+  <div class="container">
+
+    <div class="scenario-header">
+      <span class="section-label">In Practice</span>
+      <h2 class="scenario-headline">
+        Tuesday morning.<br />Twelve procedures on Friday's schedule.
+      </h2>
+      <p class="scenario-sub">
+        This is a real week at an OBL. One billing manager. Six insurers.
+        Pre-certifications, denial letters, and appeal deadlines all arriving at once —
+        alongside everything else she manages. Here is what that week looks like,
+        and what it looks like with ClearIQ.
+      </p>
+    </div>
+
+    <div class="scenario-columns">
+
+      <!-- Before -->
+      <div class="scenario-col scenario-col--before">
+        <div class="col-label col-label--before">
+          <span class="col-label-dot col-label-dot--before"></span>
+          Today
+        </div>
+        <div class="col-events">
+          {before.map((item) => (
+            <div class={`event event--${item.type}`}>
+              <span class="event-day">{item.day}</span>
+              <p class="event-text">{item.event}</p>
+            </div>
+          ))}
+        </div>
+        <div class="col-outcome col-outcome--before">
+          <span class="outcome-num">4</span>
+          <span class="outcome-label">procedures completed</span>
+          <span class="outcome-note">8 slots lost to authorization chaos</span>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="scenario-divider" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-vs">vs</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- After -->
+      <div class="scenario-col scenario-col--after">
+        <div class="col-label col-label--after">
+          <span class="col-label-dot col-label-dot--after"></span>
+          With ClearIQ
+        </div>
+        <div class="col-events">
+          {after.map((item) => (
+            <div class={`event event--${item.type}`}>
+              <span class="event-day">{item.day}</span>
+              <p class="event-text">{item.event}</p>
+            </div>
+          ))}
+        </div>
+        <div class="col-outcome col-outcome--after">
+          <span class="outcome-num">9</span>
+          <span class="outcome-label">procedures completed</span>
+          <span class="outcome-note">1 in active appeal — tracked, not lost</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="scenario-callout">
+      <div class="callout-inner">
+        <p class="callout-text">
+          Across a high-value procedure practice, recovering half the cases
+          that fall off the schedule each week changes the economics of the entire operation.
+          ClearIQ is not a faster way to write letters —
+          it is the pipeline that stops them from being necessary in the first place.
+        </p>
+        <a href="#early-access" class="btn btn-primary callout-cta">
+          Join the Waitlist
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .scenario {
+    background: var(--white);
+    padding: var(--section-y) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .scenario-header {
+    max-width: 660px;
+    margin-bottom: 64px;
+  }
+
+  .scenario-headline {
+    font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+    color: var(--navy-dark);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .scenario-sub {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+  }
+
+  /* ── Two-column layout ───────────────────── */
+  .scenario-columns {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    align-items: start;
+    margin-bottom: 52px;
+  }
+
+  /* ── Divider ─────────────────────────────── */
+  .scenario-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 52px 28px 0;
+  }
+
+  .divider-line {
+    flex: 1;
+    width: 1px;
+    min-height: 40px;
+    background: var(--border);
+  }
+
+  .divider-vs {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    background: var(--white);
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+  }
+
+  /* ── Columns ──────────────────────────────── */
+  .scenario-col {
+    padding: 0;
+  }
+
+  .col-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .col-label--before { color: #92400E; }
+  .col-label--after  { color: var(--teal-dark); }
+
+  .col-label-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .col-label-dot--before { background: #D97706; }
+  .col-label-dot--after  { background: var(--teal); }
+
+  /* ── Events ───────────────────────────────── */
+  .col-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 24px;
+  }
+
+  .event {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    align-items: baseline;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    border-left: 3px solid transparent;
+  }
+
+  .event--neutral {
+    background: var(--ivory);
+    border-left-color: var(--border-mid);
+  }
+
+  .event--bad {
+    background: #FFFBEB;
+    border-left-color: #D97706;
+  }
+
+  .event--loss {
+    background: #FEF2F2;
+    border-left-color: #DC2626;
+  }
+
+  .event--good {
+    background: #F0FAFC;
+    border-left-color: var(--teal);
+  }
+
+  .event--win {
+    background: #ECFDF5;
+    border-left-color: #059669;
+  }
+
+  .event-day {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    padding-top: 1px;
+  }
+
+  .event--bad .event-day  { color: #92400E; }
+  .event--loss .event-day { color: #991B1B; }
+  .event--good .event-day { color: var(--teal-dark); }
+  .event--win .event-day  { color: #065F46; }
+
+  .event-text {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  .event--loss .event-text { color: #7F1D1D; }
+  .event--win .event-text  { color: #064E3B; }
+
+  /* ── Outcome cards ────────────────────────── */
+  .col-outcome {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 20px 20px;
+    border-radius: var(--radius-lg);
+    border: 1px solid;
+  }
+
+  .col-outcome--before {
+    background: #FEF2F2;
+    border-color: #FECACA;
+  }
+
+  .col-outcome--after {
+    background: #ECFDF5;
+    border-color: #A7F3D0;
+  }
+
+  .outcome-num {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .col-outcome--before .outcome-num { color: #DC2626; }
+  .col-outcome--after  .outcome-num { color: #059669; }
+
+  .outcome-label {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .outcome-note {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+
+  /* ── Callout ──────────────────────────────── */
+  .scenario-callout {
+    background: var(--navy-dark);
+    border-radius: var(--radius-xl);
+    padding: 40px 48px;
+  }
+
+  .callout-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .callout-text {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.72;
+    max-width: 680px;
+    flex: 1;
+  }
+
+  .callout-cta {
+    flex-shrink: 0;
+  }
+
+  /* ── Responsive ───────────────────────────── */
+  @media (max-width: 860px) {
+    .scenario-columns {
+      grid-template-columns: 1fr;
+    }
+
+    .scenario-divider {
+      flex-direction: row;
+      padding: 24px 0;
+    }
+
+    .divider-line {
+      flex: 1;
+      width: auto;
+      height: 1px;
+      min-height: unset;
+    }
+
+    .scenario-callout {
+      padding: 32px 24px;
+    }
+
+    .callout-inner {
+      flex-direction: column;
+      gap: 28px;
+    }
+  }
+</style>

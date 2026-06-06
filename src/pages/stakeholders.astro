@@ -1,0 +1,1376 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="ClearIQ — Stakeholder Briefing"
+  description="What ClearIQ is, how it got here, and where it is going. Internal briefing for core team and partners."
+  noindex={true}
+>
+
+<!-- ── Internal Banner ──────────────────────────────── -->
+<div class="internal-banner">
+  <a href="/" class="banner-logo" aria-label="ClearIQ home">
+    <svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="28" height="28" rx="6" fill="#1A2535"/>
+      <text x="14" y="20" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#1A8EA8">C</text>
+    </svg>
+    <span class="banner-logo-name">Clear<span class="banner-logo-iq">IQ</span></span>
+  </a>
+  <span class="banner-badge">Internal · Not Indexed</span>
+</div>
+
+<!-- ── Page Header ───────────────────────────────────── -->
+<div class="page-header">
+  <div class="container">
+    <span class="page-kicker">Core Team Briefing</span>
+    <h1 class="page-title">What we're building,<br/>how we got here,<br/>and what comes next.</h1>
+    <p class="page-sub">
+      Written so you can get fully current — without a call.
+      This page covers the product, the pivot, the platform, the market, and the team.
+      If something is missing or needs updating, reach George directly.
+    </p>
+    <div class="page-meta">
+      <span class="meta-item">Last updated: June 2026</span>
+      <span class="meta-divider">·</span>
+      <span class="meta-item">George Ngengwe</span>
+      <span class="meta-divider">·</span>
+      <a href="mailto:gngengwe@gmail.com" class="meta-link">gngengwe@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── Page Body ─────────────────────────────────────── -->
+<div class="page-body">
+  <div class="container page-layout">
+
+    <!-- Sidebar TOC -->
+    <nav class="page-toc" aria-label="Page sections">
+      <span class="toc-label">On this page</span>
+      <a href="#what-we-build" class="toc-link">What we're building</a>
+      <a href="#how-we-got-here" class="toc-link">How we got here</a>
+      <a href="#the-platform" class="toc-link">The platform</a>
+      <a href="#the-market" class="toc-link">The market</a>
+      <a href="#the-team" class="toc-link">The team</a>
+      <a href="#where-we-are" class="toc-link">Where we are</a>
+      <a href="#whats-next" class="toc-link">What comes next</a>
+      <a href="#contact" class="toc-link">Reach George</a>
+    </nav>
+
+    <!-- Main content -->
+    <div class="page-content">
+
+      <!-- ─── 1. What We're Building ─────────────────── -->
+      <section class="content-section" id="what-we-build">
+        <h2 class="section-h2">What we're building</h2>
+
+        <div class="lede">
+          ClearIQ is an authorization and reimbursement platform for OBL owners,
+          cardiologists, and the billing teams managing their procedure pipeline.
+        </div>
+
+        <p>
+          The problem it solves: high-value procedure practices — office-based labs,
+          cardiology offices, ambulatory surgery centers — lose a significant portion of
+          scheduled revenue because the insurance authorization pipeline is broken.
+        </p>
+
+        <p>
+          Pre-certification requirements differ by payer, plan, and procedure code.
+          Pending authorizations sit for days with no explanation. Denial letters arrive
+          in bulk. Appeal letters get written by hand, one at a time, often by billing
+          staff who are also managing everything else. Cases that should be recoverable
+          simply run out of time.
+        </p>
+
+        <p>
+          ClearIQ automates the full pipeline — from pre-certification filing through
+          denial detection, appeal generation, and reimbursement tracking — so procedures
+          stop falling off the schedule before the patient ever walks in.
+        </p>
+
+        <div class="highlight-box">
+          <p class="highlight-text">
+            "I look at Friday's schedule. There are twelve procedures on it.
+            By Tuesday morning, sometimes only four make it."
+          </p>
+          <span class="highlight-attr">— John Lee, MD, OBL Owner</span>
+        </div>
+
+        <p>
+          That gap — between what a practice schedules and what it actually completes —
+          is the problem ClearIQ is built to close. Not by making the appeal process faster,
+          but by surfacing authorization gaps early enough that most denials never happen
+          in the first place.
+        </p>
+      </section>
+
+      <!-- ─── 2. How We Got Here ─────────────────────── -->
+      <section class="content-section" id="how-we-got-here">
+        <h2 class="section-h2">How we got here</h2>
+
+        <p>
+          ClearIQ started as Appeal-IQ — a different product with a different scope
+          and a different primary user. The pivot happened after a conversation with
+          John Lee in April 2026, and it changed almost everything.
+        </p>
+
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="tl-marker tl-marker--done"></div>
+            <div class="tl-content">
+              <span class="tl-date">Early 2026</span>
+              <h3 class="tl-heading">Appeal-IQ — the original scope</h3>
+              <p class="tl-body">
+                The first version was built for attorney-led medical billing appeal teams —
+                a workspace for preparing, reviewing, and packaging appeal letters.
+                The primary user was assumed to be a legal or compliance professional
+                reviewing physician-authored content before submission.
+                The product started at post-denial: denial comes in, letter gets written.
+              </p>
+              <p class="tl-body">
+                The landing page was live. The architecture was designed.
+                The discovery framework had 27 questions. Things were moving.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-marker tl-marker--pivot"></div>
+            <div class="tl-content">
+              <span class="tl-date">April 2026</span>
+              <h3 class="tl-heading">The conversation with John Lee</h3>
+              <p class="tl-body">
+                John is a cardiologist who owns and operates an OBL in New York.
+                He reached out as a potential investor-client — someone who might use the product
+                and also back it. The call was intended to validate Appeal-IQ's existing scope.
+                It ended up redefining the entire product.
+              </p>
+              <p class="tl-body">
+                Three things came out of that conversation that weren't on the roadmap:
+              </p>
+              <ul class="tl-list">
+                <li>
+                  <strong>The revenue problem starts before the denial.</strong>
+                  By the time a denial letter arrives, the appointment window is usually gone.
+                  The real problem is pre-authorization — cases that never get authorized
+                  don't generate a denial, they just disappear from the schedule.
+                </li>
+                <li>
+                  <strong>The daily user is billing staff, not attorneys.</strong>
+                  At John's practice, his office manager Sarah Hudkin manages pre-certs, denials,
+                  and appeals alongside everything else she runs.
+                  She is not a lawyer. She doesn't have hours to draft letters.
+                  She needs automation and visibility, not a document workspace.
+                </li>
+                <li>
+                  <strong>OBLs are the beachhead market.</strong>
+                  Cardiologists own their OBLs and feel the revenue impact directly.
+                  They have strong incentive to adopt tools that protect procedure revenue.
+                  It is a focused, high-value market with a clear decision maker.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-marker tl-marker--done"></div>
+            <div class="tl-content">
+              <span class="tl-date">May–June 2026</span>
+              <h3 class="tl-heading">Appeal-IQ → ClearIQ</h3>
+              <p class="tl-body">
+                The product was renamed and repositioned from the ground up.
+                New scope: the full pre-certification-to-reimbursement pipeline.
+                New primary user: billing and authorization staff.
+                New beachhead market: OBL owners and cardiologists, New York first.
+              </p>
+              <p class="tl-body">
+                The landing page was rebuilt to reflect the new system —
+                nine pipeline steps, a Recovery & Reimbursement Engine, and
+                a before/after scenario section showing what authorization chaos
+                looks like in a real week at a real practice.
+              </p>
+              <p class="tl-body">
+                The internal discovery framework was expanded from 27 to 33 questions
+                to capture new regulatory surface from pre-auth scope:
+                BAA obligations for pre-auth PHI, pre-certification licensure and agency risk,
+                and False Claims Act implications for authorization-assisted submissions.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ─── 3. The Platform ────────────────────────── -->
+      <section class="content-section" id="the-platform">
+        <h2 class="section-h2">The platform</h2>
+
+        <p>
+          ClearIQ covers the full authorization-to-reimbursement pipeline.
+          It is designed to be used by billing and authorization staff as a daily operational tool —
+          not a one-time filing assistant. Each step feeds into the next.
+        </p>
+
+        <div class="pipeline-grid">
+          <div class="pipeline-item">
+            <span class="pipeline-num">01</span>
+            <div>
+              <h3 class="pipeline-heading">Pre-Certification Filing</h3>
+              <p class="pipeline-body">
+                Pre-cert requests assembled per payer requirements, with required clinical
+                documentation identified and attached. Reduces manual lookup across portal documentation.
+              </p>
+            </div>
+          </div>
+          <div class="pipeline-item">
+            <span class="pipeline-num">02</span>
+            <div>
+              <h3 class="pipeline-heading">Auth Status Dashboard</h3>
+              <p class="pipeline-body">
+                All pending authorizations visible in one place — with status, timeline,
+                missing actions, and escalation flags. No more portal-by-portal checks.
+              </p>
+            </div>
+          </div>
+          <div class="pipeline-item">
+            <span class="pipeline-num">03</span>
+            <div>
+              <h3 class="pipeline-heading">Denial Detection & Triage</h3>
+              <p class="pipeline-body">
+                Denials detected automatically, classified by reason code,
+                and routed to the right appeal path — before anyone has to read the letter.
+              </p>
+            </div>
+          </div>
+          <div class="pipeline-item">
+            <span class="pipeline-num">04</span>
+            <div>
+              <h3 class="pipeline-heading">Insurer Coverage Analysis</h3>
+              <p class="pipeline-body">
+                Coverage terms, prior auth requirements, and plan-level policy pulled
+                per insurer per procedure — so pre-certs are filed with the right documentation the first time.
+              </p>
+            </div>
+          </div>
+          <div class="pipeline-item">
+            <span class="pipeline-num">05</span>
+            <div>
+              <h3 class="pipeline-heading">Clinical Documentation Review</h3>
+              <p class="pipeline-body">
+                Medical records assessed against payer criteria.
+                Gaps identified before the appeal is written, not after it is rejected again.
+              </p>
+            </div>
+          </div>
+          <div class="pipeline-item">
+            <span class="pipeline-num">06</span>
+            <div>
+              <h3 class="pipeline-heading">Physician Support Gap Detection</h3>
+              <p class="pipeline-body">
+                Missing clinical documentation, unsigned notes, and physician attestation gaps
+                surfaced automatically — with specific requests generated for the ordering physician.
+              </p>
+            </div>
+          </div>
+          <div class="pipeline-item">
+            <span class="pipeline-num">07</span>
+            <div>
+              <h3 class="pipeline-heading">Appeal Letter Generation</h3>
+              <p class="pipeline-body">
+                Payer-specific appeal letters generated from the denial reason, clinical record,
+                and coverage analysis. Output reviewed by the billing manager before submission.
+              </p>
+            </div>
+          </div>
+          <div class="pipeline-item">
+            <span class="pipeline-num">08</span>
+            <div>
+              <h3 class="pipeline-heading">Appeal Package Builder</h3>
+              <p class="pipeline-body">
+                Full submission package assembled — letter, supporting documentation, physician attestations,
+                peer review request — formatted to payer specifications.
+              </p>
+            </div>
+          </div>
+          <div class="pipeline-item pipeline-item--engine">
+            <span class="pipeline-num pipeline-num--engine">09</span>
+            <div>
+              <h3 class="pipeline-heading">Recovery & Reimbursement Engine</h3>
+              <p class="pipeline-body">
+                After the appeal wins, the engine activates: procedure-level reimbursement tracking,
+                appeal ROI by payer and procedure type, remittance reconciliation,
+                and a live practice revenue dashboard.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 4. The Market ──────────────────────────── -->
+      <section class="content-section" id="the-market">
+        <h2 class="section-h2">The market</h2>
+
+        <p>
+          The authorization failure problem is not specific to cardiology —
+          but OBL owners and cardiologists are the right entry point.
+          They own and operate their facilities. They feel the revenue impact directly.
+          They have strong motivation to adopt tools that protect procedure throughput,
+          and a clear decision-making structure: the physician owner decides,
+          the billing manager implements.
+        </p>
+
+        <div class="market-grid">
+          <div class="market-card market-card--primary">
+            <span class="market-badge">Beachhead — Phase 1</span>
+            <h3 class="market-heading">OBL Owners & Cardiologists</h3>
+            <p class="market-body">
+              Office-based labs owned and operated by interventional cardiologists.
+              High-value procedures (arterial, venous, cardiac catheterization, EP).
+              Authorization failures directly reduce physician income.
+              John Lee's New York practice is the first point of contact.
+            </p>
+          </div>
+          <div class="market-card">
+            <span class="market-badge">Phase 2</span>
+            <h3 class="market-heading">Ambulatory Surgery Centers</h3>
+            <p class="market-body">
+              ASCs operate the same authorization bottleneck across a broader procedure mix.
+              More complex payer relationships, but the same structural problem.
+              Natural expansion from OBL.
+            </p>
+          </div>
+          <div class="market-card">
+            <span class="market-badge">Phase 3</span>
+            <h3 class="market-heading">Specialty Practices</h3>
+            <p class="market-body">
+              GI, pain management, neurosurgery, orthopedics.
+              All face prior auth burden on high-value procedures.
+              Same pipeline, different procedure codes and payer mix.
+            </p>
+          </div>
+        </div>
+
+        <div class="geo-note">
+          <span class="geo-label">Geography</span>
+          New York first — John Lee's network and NIAC patient population provide initial reach.
+          Regional expansion to follow based on payer concentration and OBL density.
+        </div>
+      </section>
+
+      <!-- ─── 5. The Team ────────────────────────────── -->
+      <section class="content-section" id="the-team">
+        <h2 class="section-h2">The team</h2>
+
+        <div class="team-grid">
+
+          <div class="team-card">
+            <div class="team-avatar team-avatar--george">GN</div>
+            <div class="team-info">
+              <h3 class="team-name">George Ngengwe</h3>
+              <span class="team-role">Founder — Product, Strategy, Go-to-Market</span>
+              <p class="team-bio">
+                Building ClearIQ from product conception through first user.
+                Responsible for product design, the discovery and compliance framework,
+                stakeholder relationships, and go-to-market. Founder of HK Clearway LLC,
+                operating subsidiary of becomiNG.
+              </p>
+              <a href="mailto:gngengwe@gmail.com" class="team-contact">gngengwe@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar team-avatar--john">JL</div>
+            <div class="team-info">
+              <h3 class="team-name">John Lee, MD</h3>
+              <span class="team-role">Investor-Client · First Point of Contact</span>
+              <p class="team-bio">
+                Interventional cardiologist and OBL owner in New York.
+                John's practice is the first clinical partner — his team is the product's
+                intended first user. He brings the domain reality: the schedule, the authorization
+                pipeline, the insurer mix, the revenue at stake. He is both advisor and client.
+              </p>
+              <p class="team-bio">
+                His office manager, Sarah Hudkin, is the intended daily user —
+                the billing and authorization manager whose workflow ClearIQ is built around.
+              </p>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar team-avatar--atabong">AF</div>
+            <div class="team-info">
+              <h3 class="team-name">Atabong Fombon</h3>
+              <span class="team-role">Engineer</span>
+              <p class="team-bio">
+                Technical co-builder. Responsible for the application architecture and
+                implementation. Working with George to scope and build the MVP around
+                the revised platform spec — pre-cert through reimbursement.
+              </p>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar team-avatar--raphael">RN</div>
+            <div class="team-info">
+              <h3 class="team-name">Raphael Ngengwe</h3>
+              <span class="team-role">Physician Consultant</span>
+              <p class="team-bio">
+                Cardiologist. Independent clinical voice for validating how the platform
+                interprets clinical documentation, physician attestations, and medical necessity
+                criteria against payer standards.
+                Ensures the product speaks accurately to the clinical record.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ─── 6. Where We Are ────────────────────────── -->
+      <section class="content-section" id="where-we-are">
+        <h2 class="section-h2">Where we are</h2>
+
+        <p>
+          ClearIQ is early-stage. The product has been repositioned, the landing page is live,
+          the discovery framework is complete, and the first clinical partner is in place.
+          Here is what is done and what is not.
+        </p>
+
+        <div class="status-table">
+          <div class="status-row">
+            <div class="status-indicator status-done"></div>
+            <span class="status-item">Product repositioning — Appeal-IQ → ClearIQ</span>
+            <span class="status-state status-state--done">Done</span>
+          </div>
+          <div class="status-row">
+            <div class="status-indicator status-done"></div>
+            <span class="status-item">Landing page rebuilt to reflect full pipeline scope</span>
+            <span class="status-state status-state--done">Done</span>
+          </div>
+          <div class="status-row">
+            <div class="status-indicator status-done"></div>
+            <span class="status-item">Discovery framework — 33 questions, regulatory and product scope</span>
+            <span class="status-state status-state--done">Done</span>
+          </div>
+          <div class="status-row">
+            <div class="status-indicator status-done"></div>
+            <span class="status-item">First clinical partner identified — John Lee, MD (New York OBL)</span>
+            <span class="status-state status-state--done">Done</span>
+          </div>
+          <div class="status-row">
+            <div class="status-indicator status-progress"></div>
+            <span class="status-item">NDA / research agreement with John's practice</span>
+            <span class="status-state status-state--progress">In Progress</span>
+          </div>
+          <div class="status-row">
+            <div class="status-indicator status-progress"></div>
+            <span class="status-item">MVP scope definition with Atabong — pre-cert + appeal core</span>
+            <span class="status-state status-state--progress">In Progress</span>
+          </div>
+          <div class="status-row">
+            <div class="status-indicator status-pending"></div>
+            <span class="status-item">Business Associate Agreement (BAA) — required before any real PHI</span>
+            <span class="status-state status-state--pending">Pending</span>
+          </div>
+          <div class="status-row">
+            <div class="status-indicator status-pending"></div>
+            <span class="status-item">EOB collection from John's practice — calibrates reimbursement engine</span>
+            <span class="status-state status-state--pending">Pending</span>
+          </div>
+          <div class="status-row">
+            <div class="status-indicator status-pending"></div>
+            <span class="status-item">First user session — Sarah Hudkin, John's office manager</span>
+            <span class="status-state status-state--pending">Pending</span>
+          </div>
+          <div class="status-row">
+            <div class="status-indicator status-pending"></div>
+            <span class="status-item">MVP application build</span>
+            <span class="status-state status-state--pending">Not started</span>
+          </div>
+        </div>
+
+        <div class="discovery-link-block">
+          <div class="discovery-link-content">
+            <h3 class="discovery-link-heading">The full discovery framework</h3>
+            <p class="discovery-link-body">
+              The 33-question pre-launch decision framework lives at <code>/discovery</code>.
+              It covers regulatory blockers, product scope, legal risk, and what needs to be true
+              before ClearIQ works with real patient data. If you are evaluating the platform
+              from a compliance or legal angle, that is the right place to start.
+            </p>
+          </div>
+          <a href="/discovery" class="btn-secondary-link">
+            View Discovery Framework →
+          </a>
+        </div>
+      </section>
+
+      <!-- ─── 7. What Comes Next ─────────────────────── -->
+      <section class="content-section" id="whats-next">
+        <h2 class="section-h2">What comes next</h2>
+
+        <p>
+          The immediate path is narrow and deliberate. The goal is a working product
+          in a real practice, with real authorization data — not a broad launch
+          or a wide pilot. Everything between now and first user is about clearing
+          the blockers that make that safe and legal.
+        </p>
+
+        <ol class="next-steps">
+          <li class="next-step">
+            <span class="next-step-num">1</span>
+            <div>
+              <h3 class="next-step-heading">Execute the NDA and BAA with John's practice</h3>
+              <p class="next-step-body">
+                The research NDA covers the observation and workflow analysis phase.
+                The BAA is required before ClearIQ processes any pre-authorization or clinical data.
+                These are the legal prerequisites for the first user session.
+              </p>
+            </div>
+          </li>
+          <li class="next-step">
+            <span class="next-step-num">2</span>
+            <div>
+              <h3 class="next-step-heading">Collect EOBs from John's practice</h3>
+              <p class="next-step-body">
+                Explanation of Benefits documents show what insurers are actually paying per procedure,
+                per plan, per denial outcome. This data calibrates the reimbursement intelligence engine —
+                which payers are most worth appealing, where recovery ROI is highest.
+              </p>
+            </div>
+          </li>
+          <li class="next-step">
+            <span class="next-step-num">3</span>
+            <div>
+              <h3 class="next-step-heading">Scope the MVP with Atabong</h3>
+              <p class="next-step-body">
+                The MVP covers two pipeline stages: pre-certification filing support and
+                denial-to-appeal generation. It does not need to be the full nine-step pipeline
+                on day one — it needs to be useful in a real week for Sarah Hudkin.
+              </p>
+            </div>
+          </li>
+          <li class="next-step">
+            <span class="next-step-num">4</span>
+            <div>
+              <h3 class="next-step-heading">First user session</h3>
+              <p class="next-step-body">
+                A structured research session with Sarah at John's practice —
+                observing her current authorization workflow, testing ClearIQ's pre-cert
+                and appeal capabilities against real cases, and documenting what the product
+                needs to do differently. This is the product-market fit checkpoint.
+              </p>
+            </div>
+          </li>
+          <li class="next-step">
+            <span class="next-step-num">5</span>
+            <div>
+              <h3 class="next-step-heading">Connect with John's NIAC manager</h3>
+              <p class="next-step-body">
+                John's NIAC patient population represents a specific payer and authorization pattern.
+                Understanding how NIAC authorizations behave at his practice shapes
+                the pre-cert module's payer-specific logic for the NY market.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── 8. Contact ─────────────────────────────── -->
+      <section class="content-section" id="contact">
+        <h2 class="section-h2">Reach George</h2>
+
+        <p>
+          If you have questions, feedback, or want to discuss any part of the above —
+          the fastest path is direct.
+        </p>
+
+        <div class="contact-block">
+          <div class="contact-row">
+            <span class="contact-label">Email</span>
+            <a href="mailto:gngengwe@gmail.com" class="contact-value contact-link">gngengwe@gmail.com</a>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">Phone</span>
+            <a href="tel:+18163098526" class="contact-value contact-link">+1 (816) 309-8526</a>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">Entity</span>
+            <span class="contact-value">HK Clearway LLC, powered by becomiNG</span>
+          </div>
+        </div>
+
+        <p class="contact-note">
+          This page is internal and not indexed. If you received the link,
+          you are part of the core group George has briefed on ClearIQ.
+          Do not share publicly.
+        </p>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+</Layout>
+
+<style>
+  /* ─── Internal Banner ─────────────────────────── */
+  .internal-banner {
+    background: #1A2535;
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .banner-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .banner-logo-name {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .banner-logo-iq { color: var(--teal); }
+
+  .banner-badge {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.30);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 4px 12px;
+  }
+
+  /* ─── Page Header ─────────────────────────────── */
+  .page-header {
+    background: var(--navy-dark);
+    padding: 80px 0 72px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .page-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 20px;
+  }
+
+  .page-kicker::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    background: var(--teal);
+  }
+
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+
+  .page-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.75;
+    max-width: 560px;
+    margin-bottom: 28px;
+  }
+
+  .page-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.30);
+  }
+
+  .meta-divider { color: rgba(255,255,255,0.15); }
+
+  .meta-link {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.40);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .meta-link:hover { color: rgba(255,255,255,0.70); }
+
+  /* ─── Layout ──────────────────────────────────── */
+  .page-body {
+    background: var(--white);
+    padding: 64px 0 100px;
+  }
+
+  .page-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  /* ─── TOC ─────────────────────────────────────── */
+  .page-toc {
+    position: sticky;
+    top: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .toc-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+
+  .toc-link {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    text-decoration: none;
+    transition: color 0.15s;
+    line-height: 1.5;
+    padding: 3px 0;
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+  }
+
+  .toc-link:hover {
+    color: var(--teal);
+    border-left-color: var(--teal);
+  }
+
+  /* ─── Content ─────────────────────────────────── */
+  .page-content {
+    min-width: 0;
+  }
+
+  .content-section {
+    padding-bottom: 72px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 72px;
+  }
+
+  .content-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .section-h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    color: var(--navy-dark);
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+
+  .page-content p {
+    font-size: 0.975rem;
+    color: var(--text-mid);
+    line-height: 1.8;
+    margin-bottom: 18px;
+    max-width: 680px;
+  }
+
+  /* ─── Lede ────────────────────────────────────── */
+  .lede {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    color: var(--navy-dark);
+    line-height: 1.6;
+    margin-bottom: 28px;
+    max-width: 620px;
+  }
+
+  /* ─── Highlight box (quote) ───────────────────── */
+  .highlight-box {
+    background: var(--navy-dark);
+    border-radius: var(--radius-lg);
+    padding: 32px 36px;
+    margin: 32px 0;
+  }
+
+  .highlight-text {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.80);
+    line-height: 1.65;
+    margin-bottom: 12px !important;
+    max-width: 100% !important;
+  }
+
+  .highlight-attr {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── Timeline ────────────────────────────────── */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+    margin-top: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 48px;
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+
+  .tl-marker {
+    position: absolute;
+    left: -28px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid;
+    background: var(--white);
+  }
+
+  .tl-marker--done {
+    border-color: var(--teal);
+    background: var(--teal);
+  }
+
+  .tl-marker--pivot {
+    border-color: #F59E0B;
+    background: #F59E0B;
+    box-shadow: 0 0 0 4px rgba(245,158,11,0.15);
+  }
+
+  .tl-date {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .tl-heading {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--navy-dark);
+    margin-bottom: 12px;
+  }
+
+  .tl-body {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-bottom: 12px;
+    max-width: 620px;
+  }
+
+  .tl-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .tl-list li {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    padding-left: 20px;
+    position: relative;
+    max-width: 600px;
+  }
+
+  .tl-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  .tl-list li strong {
+    color: var(--navy-dark);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ─── Pipeline grid ───────────────────────────── */
+  .pipeline-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 28px;
+  }
+
+  .pipeline-item {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    background: var(--ivory);
+    border-left: 3px solid var(--border-mid);
+    transition: border-color 0.15s;
+  }
+
+  .pipeline-item:hover {
+    border-left-color: var(--teal);
+  }
+
+  .pipeline-item--engine {
+    background: var(--teal-xlight);
+    border-left-color: var(--teal);
+  }
+
+  .pipeline-num {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-faint);
+    padding-top: 3px;
+  }
+
+  .pipeline-num--engine { color: var(--teal-dark); }
+
+  .pipeline-heading {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy-dark);
+    margin-bottom: 5px;
+  }
+
+  .pipeline-item--engine .pipeline-heading { color: var(--teal-dark); }
+
+  .pipeline-body {
+    font-size: 0.84rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  /* ─── Market grid ─────────────────────────────── */
+  .market-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  .market-card {
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--ivory);
+  }
+
+  .market-card--primary {
+    background: var(--teal-xlight);
+    border-color: rgba(26,142,168,0.25);
+  }
+
+  .market-badge {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .market-card:not(.market-card--primary) .market-badge {
+    color: var(--text-faint);
+  }
+
+  .market-heading {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--navy-dark);
+    margin-bottom: 10px;
+  }
+
+  .market-body {
+    font-size: 0.84rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .geo-note {
+    background: var(--ivory-mid);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    border: 1px solid var(--border);
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .geo-label {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+
+  /* ─── Team grid ───────────────────────────────── */
+  .team-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 28px;
+  }
+
+  .team-card {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  .team-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  .team-avatar--george  { background: var(--navy-dark); color: var(--teal); }
+  .team-avatar--john    { background: #1E3A5F; color: #93C5FD; }
+  .team-avatar--atabong { background: #1C3A2B; color: #6EE7B7; }
+  .team-avatar--raphael { background: #3B1E54; color: #DDD6FE; }
+
+  .team-name {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--navy-dark);
+    margin-bottom: 4px;
+  }
+
+  .team-role {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .team-bio {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    line-height: 1.72;
+    margin-bottom: 10px;
+    max-width: 100% !important;
+  }
+
+  .team-contact {
+    font-size: 0.82rem;
+    color: var(--teal-dark);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .team-contact:hover { color: var(--teal); }
+
+  /* ─── Status table ────────────────────────────── */
+  .status-table {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 28px 0;
+  }
+
+  .status-row {
+    display: grid;
+    grid-template-columns: 16px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 13px 16px;
+    border-radius: var(--radius);
+    background: var(--ivory);
+    font-size: 0.875rem;
+    color: var(--text-mid);
+  }
+
+  .status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .status-done     { background: #10B981; }
+  .status-progress { background: #F59E0B; }
+  .status-pending  { background: var(--border-mid); }
+
+  .status-state {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .status-state--done     { background: #D1FAE5; color: #065F46; }
+  .status-state--progress { background: #FEF3C7; color: #92400E; }
+  .status-state--pending  { background: var(--border); color: var(--text-faint); }
+
+  .discovery-link-block {
+    background: var(--navy-dark);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .discovery-link-content { flex: 1; }
+
+  .discovery-link-heading {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .discovery-link-body {
+    font-size: 0.84rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  .discovery-link-body code {
+    font-family: 'Courier New', monospace;
+    background: rgba(255,255,255,0.08);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: var(--teal);
+  }
+
+  .btn-secondary-link {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    transition: color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .btn-secondary-link:hover {
+    color: var(--white);
+    border-color: rgba(255,255,255,0.45);
+  }
+
+  /* ─── Next steps ──────────────────────────────── */
+  .next-steps {
+    list-style: none;
+    padding: 0;
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .next-step {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 16px;
+    padding: 20px 20px;
+    border-radius: var(--radius);
+    background: var(--ivory);
+    border-left: 3px solid var(--border-mid);
+  }
+
+  .next-step-num {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--text-faint);
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .next-step-heading {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy-dark);
+    margin-bottom: 8px;
+  }
+
+  .next-step-body {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    line-height: 1.72;
+  }
+
+  /* ─── Contact ─────────────────────────────────── */
+  .contact-block {
+    background: var(--ivory);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    margin: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 480px;
+  }
+
+  .contact-row {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .contact-label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .contact-value {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+  }
+
+  .contact-link {
+    color: var(--teal-dark);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .contact-link:hover { color: var(--teal); }
+
+  .contact-note {
+    font-size: 0.82rem !important;
+    color: var(--text-faint) !important;
+    font-style: italic;
+    max-width: 480px !important;
+    margin-top: 12px;
+  }
+
+  /* ─── Responsive ──────────────────────────────── */
+  @media (max-width: 900px) {
+    .page-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .page-toc {
+      position: static;
+      display: none;
+    }
+
+    .market-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page-header { padding: 52px 0 48px; }
+
+    .team-card {
+      grid-template-columns: 1fr;
+    }
+
+    .discovery-link-block {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

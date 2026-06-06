@@ -1,40 +1,40 @@
 ---
 const features = [
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3L3 7.5v9L12 21l9-4.5v-9L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.4"/><path d="M12 9.5v-4M12 18.5v-4M6.5 14.5L3 12.5M21 12.5l-3.5 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
-    title: "Appeal Strength Map",
-    badge: "Analysis",
-    body: "Every case is assessed for appeal viability across denial type, clinical documentation quality, insurer argument, and applicable coverage standards — giving teams a structured read before committing resources.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h10M7 11h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 21l4-4 4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    title: "Pre-Authorization Intelligence",
+    badge: "Pre-Cert",
+    body: "Know exactly what each insurer requires for each procedure before you file. Payer-specific requirement templates reduce first-denial rates and protect your schedule from avoidable authorization failures.",
   },
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h10M7 11h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 21l4-4 4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3L3 7.5v9L12 21l9-4.5v-9L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.4"/><path d="M12 9.5v-4M12 18.5v-4M6.5 14.5L3 12.5M21 12.5l-3.5 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+    title: "Appeal Strength Analysis",
+    badge: "Analysis",
+    body: "Every denial is assessed for appeal viability across denial type, clinical documentation strength, and insurer coverage argument — giving your team a clear read before committing time and resources.",
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h10M7 11h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="17" cy="17" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M15.5 17h3M17 15.5v3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
     title: "Denial Reason Interpreter",
     badge: "Extraction",
-    body: "Denial letters are parsed to extract the insurer's stated basis, coverage language cited, and specific policy provisions invoked — translating insurance-speak into structured, actionable review.",
+    body: "Denial letters are parsed to extract the exact coverage basis, policy language cited, and clinical criteria applied — translating insurance-speak into structured, actionable information your team can act on.",
   },
   {
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.4"/></svg>`,
     title: "Physician Support Gap Detector",
     badge: "Gap Analysis",
-    body: "Missing, incomplete, or clinically misaligned physician letters are flagged before drafting begins — with structured prompts identifying what documentation is needed and why.",
+    body: "Missing, incomplete, or clinically misaligned documentation is flagged before the appeal is drafted — with structured prompts identifying exactly what's needed and why it matters for the specific denial.",
   },
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="12" cy="19" rx="7" ry="2" stroke="currentColor" stroke-width="1.4" opacity="0.35"/><path d="M5 19V8l7-5 7 5v11" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 19v-5h6v5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
-    title: "Historical Appeal Memory",
-    badge: "Institutional Knowledge",
-    body: "Winning arguments, effective physician letter structures, and denial-specific strategies from past cases inform future case preparation — without reinventing the wheel every time.",
-  },
-  {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="7" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3.3 2.7-6 6-6h0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M16 13l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="16" r="4.5" stroke="currentColor" stroke-width="1.5"/></svg>`,
-    title: "Attorney Review Workspace",
-    badge: "Expert Review",
-    body: "Extracted facts, argument themes, documentation gaps, and generated drafts are presented in a structured workspace designed for attorney and advocate review, annotation, and decision-making.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17l4-8 4 5 2-3 4 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="2" width="20" height="20" rx="2.5" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    title: "Reimbursement Intelligence",
+    badge: "Analytics",
+    body: "Procedure-by-procedure, insurer-by-insurer tracking of what you're receiving vs. what you should be — and which appeal efforts are yielding the highest return. Know where to focus and where to let go.",
   },
   {
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8L14 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
     title: "Appeal Package Builder",
     badge: "Output",
-    body: "A complete, formatted appeal package — cover letter, argument structure, clinical documentation summary, and supporting exhibit index — generated for final expert review and submission.",
+    body: "A complete, formatted appeal package — cover letter, clinical argument, supporting documentation index — generated for review and submission. Submission-ready, not a rough draft.",
   },
 ];
 ---
@@ -44,11 +44,11 @@ const features = [
     <div class="features-header">
       <span class="section-label">Core Features</span>
       <h2 class="features-headline">
-        Built for the full appeal workflow.
+        Built for the full authorization pipeline.
       </h2>
       <p class="features-subhead">
-        Six purpose-built modules that take a case from denial intake to submission-ready
-        appeal package — with expert review at the center.
+        Six purpose-built modules that take a procedure from pre-certification
+        through denial, appeal, and reimbursement recovery — with human review at every step.
       </p>
     </div>
 

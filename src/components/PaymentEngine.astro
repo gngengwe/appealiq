@@ -1,40 +1,40 @@
-﻿---
+---
 const paymentFeatures = [
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 11l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M4 17l4-8 4 5 2-3 4 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="2" width="18" height="18" rx="2.5" stroke="currentColor" stroke-width="1.5"/></svg>`,
     n: "01",
-    title: "Outcome Tracking",
-    body: "Appeal results are logged directly in the case workspace. An approved decision automatically activates the recovery workflow — no manual handoff, no separate system, no delay.",
+    title: "Procedure-Level Reimbursement Tracking",
+    body: "Track what you're actually receiving per procedure type, per insurer — across your full case history. Know your real reimbursement profile: not what the contract says, what you're getting.",
   },
   {
     icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 2v3M11 17v3M4.22 4.22l2.12 2.12M15.66 15.66l2.12 2.12M2 11h3M17 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.6"/></svg>`,
     n: "02",
-    title: "Contingency Fee Calculation",
-    body: "For legal teams working on contingency, fee splits are calculated automatically against the approved claim amount using your firm's configured fee structures — no manual arithmetic, no spreadsheet reconciliation.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="6" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="15" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M6 9.5v1.5a5 5 0 005 5M16 9.5v1.5a5 5 0 01-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
-    n: "03",
-    title: "Multi-Party Disbursement",
-    body: "Approved claim amounts are allocated across every party in the disbursement chain — lead counsel, co-counsel, referring advocates, medical providers, lien holders, and patient — with configurable allocation rules applied per case.",
+    title: "Appeal ROI Intelligence",
+    body: "Which procedures yield the best return when appealed with which insurers? ClearIQ tracks approval rates, appeal success, and recovered revenue by procedure type and payer — so appeal effort goes where it matters.",
   },
   {
     icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="3" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h16" stroke="currentColor" stroke-width="1.4"/><path d="M7 13h2M13 13h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+    n: "03",
+    title: "Authorization Revenue Dashboard",
+    body: "See exactly how many dollars are sitting in pending authorization at any given time. Know what's at risk before it disappears from your schedule — not after the fact.",
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="6" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="15" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M6 9.5v1.5a5 5 0 005 5M16 9.5v1.5a5 5 0 01-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
     n: "04",
     title: "Remittance Reconciliation",
-    body: "Incoming EFT and ACH remittances from insurers are matched against approved claims in real time. Discrepancies — underpayments, missing payments, partial releases — are flagged automatically before they become collection problems.",
+    body: "EFT and ACH payments from insurers are matched against approved claims automatically. Underpayments, short pays, and missing remittances are flagged before they become collection problems.",
   },
   {
     icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="3" y="3" width="16" height="16" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h8M7 11h8M7 14h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
     n: "05",
     title: "Case Recovery Ledger",
-    body: "Every case maintains a complete, auditable recovery record — approved claim amount, fee splits, disbursements issued, outstanding balances, lien satisfactions, and full disbursement history. One record, fully traceable.",
+    body: "Every case has a complete, auditable recovery record — approved amount, payment received, variance flagged, outstanding balance, and resolution status. One record, fully traceable.",
   },
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M4 17l4-8 4 5 2-3 4 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="2" width="18" height="18" rx="2.5" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 11l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     n: "06",
-    title: "Revenue Reporting",
-    body: "Firm-level and advocate-level reporting across approved appeal revenue, pending disbursements, open balances, and payment pipeline — giving managing partners and finance teams a real-time view of where every dollar stands.",
+    title: "Practice Revenue Dashboard",
+    body: "Full picture across all procedures and insurers: approved revenue, pending reimbursement, open appeals, and remittance history — for OBL owners and practice managers who need to know where every dollar stands.",
   },
 ];
 ---
@@ -49,23 +49,22 @@ const paymentFeatures = [
   <div class="container">
     <div class="payment-header">
       <div class="payment-header-left">
-        <span class="section-label section-label--white">Recovery & Disbursement</span>
+        <span class="section-label section-label--white">Recovery &amp; Reimbursement Engine</span>
         <h2 class="payment-headline">
           The appeal wins.<br />
-          <em>Recovery follows.</em>
+          <em>Every dollar follows.</em>
         </h2>
         <p class="payment-body">
-          When the insurer approves, the administrative work shouldn't start over.
-          ClearIQ's integrated recovery and disbursement module tracks outcomes,
-          calculates fee allocations, coordinates multi-party disbursements, and
-          reconciles insurer remittances — triggered automatically the moment an
-          appeal is marked approved.
+          When the insurer approves, the revenue work shouldn't start over.
+          ClearIQ's Recovery &amp; Reimbursement Engine tracks approved amounts,
+          reconciles insurer remittances, and gives OBL owners and practice managers
+          a real-time view of every dollar — from pending authorization to final payment.
         </p>
         <p class="payment-body payment-body--secondary">
-          For legal-medical teams working on contingency or fee-for-service models,
-          this closes the loop that has historically required a separate billing team,
-          a separate system, and weeks of manual follow-up.
-          ClearIQ handles it as part of the same case workspace.
+          For practices managing high-value procedures across multiple insurers,
+          this closes the loop that has historically required manual spreadsheet
+          reconciliation, delayed follow-up, and revenue left uncollected.
+          ClearIQ handles it as part of the same pipeline.
         </p>
       </div>
 
@@ -78,8 +77,8 @@ const paymentFeatures = [
               </svg>
             </div>
             <div class="pfs-content">
-              <span class="pfs-label">Appeal filed</span>
-              <span class="pfs-sub">Package submitted to insurer</span>
+              <span class="pfs-label">Pre-auth filed</span>
+              <span class="pfs-sub">Documentation submitted to insurer</span>
             </div>
           </div>
           <div class="pfs-connector" aria-hidden="true"></div>
@@ -90,8 +89,8 @@ const paymentFeatures = [
               </svg>
             </div>
             <div class="pfs-content">
-              <span class="pfs-label">Appeal approved</span>
-              <span class="pfs-sub">Insurer decision logged</span>
+              <span class="pfs-label">Appeal submitted &amp; approved</span>
+              <span class="pfs-sub">Insurer reversal decision logged</span>
             </div>
           </div>
           <div class="pfs-connector" aria-hidden="true"></div>
@@ -102,8 +101,8 @@ const paymentFeatures = [
               </svg>
             </div>
             <div class="pfs-content">
-              <span class="pfs-label pfs-label--active">Recovery & disbursement activates</span>
-              <span class="pfs-sub">Fee calc, disbursement, reconciliation</span>
+              <span class="pfs-label pfs-label--active">Recovery &amp; Reimbursement Engine activates</span>
+              <span class="pfs-sub">Remittance tracking, reconciliation, ledger update</span>
             </div>
           </div>
           <div class="pfs-connector" aria-hidden="true"></div>
@@ -115,8 +114,8 @@ const paymentFeatures = [
               </svg>
             </div>
             <div class="pfs-content">
-              <span class="pfs-label">Disbursements issued</span>
-              <span class="pfs-sub">All parties paid, ledger closed</span>
+              <span class="pfs-label">Case closed</span>
+              <span class="pfs-sub">Payment confirmed, practice ledger updated</span>
             </div>
           </div>
         </div>
@@ -126,8 +125,8 @@ const paymentFeatures = [
             <circle cx="6.5" cy="6.5" r="5.5" stroke="rgba(26,142,168,0.6)" stroke-width="1.2"/>
             <path d="M6.5 4v3.5M6.5 9h.01" stroke="rgba(26,142,168,0.6)" stroke-width="1.2" stroke-linecap="round"/>
           </svg>
-          Human review is required before any disbursement is initiated.
-          The workspace prepares — authorized personnel approve.
+          Human review is required before any payment action is initiated.
+          The engine prepares — authorized personnel approve.
         </div>
       </div>
     </div>
@@ -148,9 +147,9 @@ const paymentFeatures = [
     <div class="payment-closer">
       <div class="payment-closer-line" aria-hidden="true"></div>
       <p class="payment-closer-text">
-        From patient intake and denial letter through appeal package, insurer approval,
-        and full recovery disbursement — ClearIQ manages the complete lifecycle
-        in one structured workspace.
+        From pre-certification filing and denial detection through appeal, insurer approval,
+        and full reimbursement recovery — ClearIQ manages the complete procedure lifecycle
+        in one structured pipeline.
       </p>
       <div class="payment-closer-line" aria-hidden="true"></div>
     </div>

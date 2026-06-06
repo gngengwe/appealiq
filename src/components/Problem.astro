@@ -1,34 +1,34 @@
 ---
 const problems = [
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="2" y="3" width="6" height="8" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="3" width="10" height="4" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="9.5" width="10" height="4" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="2" y="13" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/></svg>`,
-    title: "Fragmented Materials",
-    body: "Patient intake, denial letters, medical records, physician statements, and prior appeals live in different systems, formats, and folders — with no structured connection between them.",
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 2v4M11 16v4M4.22 4.22l2.83 2.83M14.95 14.95l2.83 2.83M2 11h4M16 11h4M4.22 17.78l2.83-2.83M14.95 7.05l2.83-2.83" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+    title: "Pre-Authorization Maze",
+    body: "Every insurer runs a different credentialing process, requires different documentation, and applies different criteria for the same procedure. There is no standard — just a gauntlet your billing staff navigates from scratch, every time.",
   },
   {
     icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M11 7v4.5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-    title: "Time-Sensitive Deadlines",
-    body: "Health insurance appeals operate under strict external deadlines. Missed windows mean closed cases. The cost of a disorganized workflow is measured in lost appeals — and patient outcomes.",
+    title: "Schedule Bleeding",
+    body: "You build the schedule. Then half the patients fall into authorization pending, get denied, or end up under appeal. You lose the procedure, the revenue, and the slot — before the week even starts.",
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="2" y="3" width="6" height="8" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="3" width="10" height="4" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="9.5" width="10" height="4" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="2" y="13" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/></svg>`,
+    title: "Appeals Written by Hand",
+    body: "Your office manager writes every appeal letter from scratch. She's managing a hundred other things and she's not an appeal specialist — she's doing this alongside everything else. The letters go out. You don't always know what happens next.",
   },
   {
     icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M4 17l4-4 3 3 7-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="4.5" r="1.5" stroke="currentColor" stroke-width="1.4"/></svg>`,
-    title: "No Repeatable Workflow",
-    body: "Every case starts from scratch. Knowledge from past appeals — winning arguments, effective physician letters, denial patterns — is locked in documents, inboxes, and institutional memory.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 2v4M11 16v4M4.22 4.22l2.83 2.83M14.95 14.95l2.83 2.83M2 11h4M16 11h4M4.22 17.78l2.83-2.83M14.95 7.05l2.83-2.83" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
-    title: "Missing Physician Support",
-    body: "Physician letters and clinical documentation are frequently incomplete, late, or misaligned with the legal arguments required for the specific denial reason — gaps that only surface at final review.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M3 6h16M3 11h10M3 16h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="15.5" r="3.5" stroke="currentColor" stroke-width="1.4"/><path d="M17 14v1.5l1 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
-    title: "The Strongest Facts Are Buried",
-    body: "The facts that win the appeal exist — somewhere across denial letters, medical records, and physician notes. Attorneys spend hours finding them before they can begin the actual advocacy work. That is the orientation problem.",
+    title: "No Pipeline Visibility",
+    body: "You can't see which procedures are approved, which are pending, and which are already lost — until patients are or aren't on the schedule. By then, it's too late to act.",
   },
   {
     icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 3L4 7v5c0 4 3.5 7.5 7 8 3.5-.5 7-4 7-8V7L11 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 11l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-    title: "Inconsistent Documentation",
-    body: "Without a standard intake and documentation structure, appeal packages vary in completeness and quality across attorneys, advocates, and case managers — creating risk and rework.",
+    title: "High-Value Procedures at Risk",
+    body: "Atherectomy, genicular embolization, venous stents — these procedures reimburse in the thousands per case. One denied procedure, left unappealed or appealed too late, is real revenue that doesn't come back.",
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M3 6h16M3 11h10M3 16h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="15.5" r="3.5" stroke="currentColor" stroke-width="1.4"/><path d="M17 14v1.5l1 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+    title: "No Appeal Intelligence",
+    body: "Which procedures appeal successfully with which insurers? Which denial reasons are worth fighting? No one knows — because nothing in your current workflow is tracking it.",
   },
 ];
 ---
@@ -38,12 +38,13 @@ const problems = [
     <div class="problem-header">
       <span class="section-label">The Challenge</span>
       <h2 class="problem-headline">
-        Health insurance appeal preparation is broken.
+        The revenue problem starts before the denial.
       </h2>
       <p class="problem-body">
-        Your team works across scattered intake notes, denial letters, medical records, physician support letters,
-        and prior appeal work product — under deadline pressure, without a shared structure, and with no way
-        to systematically surface what's missing.
+        For OBL owners and high-value procedure practices, the authorization pipeline
+        is where revenue is won or lost — not in the appeal letter. Your billing team
+        is fighting this by hand, insurer by insurer, procedure by procedure, with no
+        system built for the work.
       </p>
     </div>
 

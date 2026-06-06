@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
 
 const questions = [
@@ -9,15 +9,15 @@ const questions = [
     question: 'When a user runs Denial Analysis or Extract Facts, case content is sent to the Anthropic API — are users informed of this, and is Anthropic an acceptable data processor for their cases?',
     state: 'API key is server-side only. No disclosure exists in the app. The PHI disclaimer warns against entering real PHI but does not explain that content is transmitted to a third party.',
     owner: 'Attorney / Business-Legal',
-    risk: 'Even de-identified case content sent to a third-party AI provider may require disclosure under firm data policies, bar association ethics rules, or client retainer agreements. Anthropic\'s API terms do not include a BAA. Minimum action: add a prominent pre-session disclosure explaining content is transmitted to Anthropic\'s API.',
+    risk: 'Even de-identified case content sent to a third-party AI provider may require disclosure. Anthropic\'s API terms do not include a BAA. Minimum action: add a prominent pre-session disclosure explaining content is transmitted to Anthropic\'s API.',
   },
   {
     n: 2, blocking: true, impact: 5,
     category: 'Legal & Compliance',
-    question: 'Does generating appeal arguments and drafting appeal letters — even with [ATTORNEY REVIEW] flags — constitute the unauthorized practice of law if a non-attorney uses the app?',
-    state: 'The WhoFor section on the landing page includes Patient Advocates and Case Managers (non-attorneys). The app generates structured legal arguments.',
+    question: 'Does generating appeal arguments and drafting appeal letters — even with [ATTORNEY REVIEW] flags — constitute the unauthorized practice of law when the primary user is a non-attorney billing manager?',
+    state: 'The primary daily user is now modeled as a practice billing/auth manager — for example, an office manager like Sarah Hudkin who handles pre-certs, denials, and appeal letters. She is not an attorney. The app generates structured legal arguments that this user will review and submit to insurers. Prior UPL analysis assumed attorney supervision of the output.',
     owner: 'Attorney',
-    risk: 'UPL rules vary by state but are broadly construed. Decision required: either restrict first users to licensed attorneys only, or obtain a legal opinion on whether the "AI tool, not legal advice" framing is sufficient in target jurisdictions before exposing non-attorney personas.',
+    risk: 'If a billing manager submits an AI-generated appeal letter with legal arguments without attorney review, UPL exposure may be clearer than in an attorney-supervised context. Decision required: is attorney review of each appeal letter a hard requirement before submission, or does the "AI tool, not legal advice" framing hold for billing staff in target jurisdictions? This question is more urgent now that the primary user is a non-attorney.',
   },
   {
     n: 3, blocking: true, impact: 5,
@@ -31,25 +31,25 @@ const questions = [
     n: 4, blocking: true, impact: 5,
     category: 'Business Model',
     question: 'Is the first user session paid, covered by an NDA, or a free research session — and does the answer change our liability exposure?',
-    state: 'No commercial relationship defined. No NDA template exists.',
+    state: 'First POC identified: John Lee\'s OBL practice in New York. Primary daily user: Sarah Hudkin (office manager). No commercial relationship defined. No NDA template exists. John has offered to share EOBs from his lab for system calibration.',
     owner: 'Business-Legal',
-    risk: 'A paid engagement may trigger different regulatory obligations than a free research session. Recommendation: first session should be NDA-covered research — explicitly framed as prototype evaluation, not a commercial service. Draft a one-page NDA before outreach.',
+    risk: 'A paid engagement may trigger different regulatory obligations than a free research session. Recommendation: first session should be NDA-covered research — explicitly framed as prototype evaluation, not a commercial service. Draft a one-page NDA before outreach to John\'s team.',
   },
   {
     n: 5, blocking: true, impact: 5,
     category: 'Business Model',
-    question: 'If the first user is an attorney using ClearIQ on behalf of actual clients, does that create a duty of care or malpractice exposure that flows back to us?',
-    state: 'Not addressed anywhere in the product or any legal document.',
+    question: 'If the first user is a billing manager using ClearIQ on behalf of actual patients, does that create a duty of care or liability exposure that flows back to us if an appeal fails or a pre-auth is filed incorrectly?',
+    state: 'Primary user is now a billing manager (not an attorney). The platform will generate pre-authorization requests and appeal letters that this user submits to insurers on behalf of patients. No limitation of liability clause exists in any document.',
     owner: 'Attorney',
-    risk: 'If an attorney submits an AI-assisted appeal based on a materially incorrect denial analysis and the appeal fails, there is a potential professional negligence chain. The ToS must include an explicit limitation of liability clause. Do not run a real user session without this.',
+    risk: 'If a billing manager submits an AI-assisted appeal or pre-auth based on incorrect information and the procedure is denied or a patient experiences harm, the liability chain is unclear. The ToS must include an explicit limitation of liability clause before any real user session.',
   },
   {
     n: 6, blocking: true, impact: 5,
     category: 'AI & Accuracy',
-    question: 'Has the denial analysis AI output been validated against real denial letters — is it accurate enough that an attorney won\'t be misled by a confident-sounding wrong answer?',
-    state: 'The API route exists and returns structured JSON. It has not been tested against real denial letters. Claude is instructed to act as an "expert appeal analyst."',
-    owner: 'Product / Attorney',
-    risk: 'An attorney who acts on a confidently-wrong AI-extracted appeal deadline could file late. Before session 1: run the denial analysis route against at least 5 real denial letters and have an appeal-experienced person validate the outputs. Document what it gets wrong.',
+    question: 'Has the denial analysis AI output been validated against real denial letters — specifically for cardiology and OBL procedures like atherectomy, stents, and genicular embolization?',
+    state: 'The API route exists and returns structured JSON. It has not been tested against real denial letters from cardiology/OBL procedures. Claude is instructed to act as an "expert appeal analyst." John Lee has offered to share EOBs from his lab, which could inform validation.',
+    owner: 'Product / Clinical',
+    risk: 'A billing manager who acts on a confidently-wrong AI-extracted appeal deadline or denial basis could file late or submit incorrect arguments. Before session 1: run the denial analysis route against at least 5 real OBL denial letters and have someone who knows cardiology appeals validate the outputs. Document what it gets wrong.',
   },
   {
     n: 7, blocking: true, impact: 5,
@@ -60,15 +60,31 @@ const questions = [
     risk: null,
   },
   {
-    n: 8, blocking: true, impact: 4,
+    n: 8, blocking: true, impact: 5,
+    category: 'Data & Privacy',
+    question: 'Does processing prior authorization documentation — which includes patient identifiers, procedure details, and clinical records — require a Business Associate Agreement with the practice before we handle any data, even in a prototype context?',
+    state: 'The MVP handles post-denial content (denial letters, medical records). The expanded scope adds pre-authorization documentation, which necessarily includes PHI: patient name, DOB, procedure code, diagnosis, and clinical justification. Anthropic\'s API does not offer a BAA. The pre-auth expansion increases the PHI surface area significantly.',
+    owner: 'Business-Legal / Attorney',
+    risk: 'Even if the first session is framed as prototype evaluation, processing pre-authorization documentation with real patient identifiers without a BAA likely violates HIPAA. If John Lee\'s practice shares real patient authorization requests — even one case — we become a business associate. Minimum action: BAA template required before any pre-auth scope goes live with real patient data. De-identified test cases only until this is resolved.',
+  },
+  {
+    n: 9, blocking: true, impact: 5,
+    category: 'Legal & Compliance',
+    question: 'Does operating as a pre-authorization filing service on behalf of a medical practice require any form of licensure, create an agency relationship, or expose us to liability if a pre-auth is filed incorrectly?',
+    state: 'The platform scope now includes pre-certification filing as step 01 of the workflow. This means ClearIQ would assist practices in filing prior authorization requests — not just appealing post-denial decisions. The agency, licensure, and liability implications of this expanded scope have not been assessed.',
+    owner: 'Attorney / Business-Legal',
+    risk: 'If assisting with pre-auth filing creates an agency relationship with the practice, we may bear liability for filing errors. Some states require specific licensure for entities that act as billing agents or submit authorizations on behalf of providers. This must be assessed before the pre-cert module is built for real use.',
+  },
+  {
+    n: 10, blocking: true, impact: 4,
     category: 'Data & Privacy',
     question: 'localStorage keeps data on the user\'s device — but if they clear their browser cache between sessions, all matters are lost with no warning. Do we handle this?',
     state: 'No warning, no export, no backup. The workspace dashboard shows matters from localStorage only.',
     owner: 'Engineer / Product',
-    risk: 'A user who loses a partially-built matter the night before an appeal deadline will not trust the product. Minimum action: add a persistent banner warning that data is stored in the browser and provide an "Export all matters as JSON" backup button before session 1.',
+    risk: 'A billing manager who loses a partially-built case the night before an appeal deadline will not trust the product. Minimum action: add a persistent banner warning that data is stored in the browser and provide an "Export all matters as JSON" backup button before session 1.',
   },
   {
-    n: 9, blocking: true, impact: 4,
+    n: 11, blocking: true, impact: 4,
     category: 'Technical Infrastructure',
     question: 'What happens if the Anthropic API is down or returns an error during a real user session — does the app fail gracefully or show a broken state?',
     state: 'API routes return { error } with status 500. Panel components show a red error message. No retry logic, no queue, no offline fallback. AI steps are not skippable.',
@@ -76,31 +92,31 @@ const questions = [
     risk: null,
   },
   {
-    n: 10, blocking: true, impact: 4,
+    n: 12, blocking: true, impact: 4,
     category: 'UX & Workflow',
-    question: 'Does the 6-step linear flow (denial → intake → strength → arguments → draft → review) match how real appeal attorneys actually work, or do they jump non-linearly?',
-    state: 'Steps are fixed in the sidebar. WorkspaceShell allows navigation to any step at any time — not technically enforced linear — but the UX implies sequence.',
+    question: 'Does the workflow (pre-auth → denial → intake → strength → arguments → draft → review) match how OBL billing staff actually work, or do they jump non-linearly between steps?',
+    state: 'Steps are fixed in the sidebar. WorkspaceShell allows navigation to any step at any time — not technically enforced as linear — but the UX implies sequence. The original flow assumed post-denial entry. The expanded scope adds pre-auth as step 01, which may require a separate entry path for cases that were never denied (pre-auth approved).',
     owner: 'Product / Open',
     risk: null,
   },
   {
-    n: 11, blocking: true, impact: 4,
+    n: 13, blocking: true, impact: 4,
     category: 'UX & Workflow',
-    question: 'If a user navigates between steps, do unsaved form changes persist — or does navigating away silently discard edits in DenialPanel, IntakePanel, and ArgumentBuilder?',
+    question: 'If a user navigates between steps, do unsaved form changes persist — or does navigating away without saving silently discard edits?',
     state: 'All panels use local useState for draft text. The Save button writes to localStorage. Navigating away without saving silently discards changes. No dirty-state warning exists.',
     owner: 'Engineer',
     risk: null,
   },
   {
-    n: 12, blocking: true, impact: 4,
+    n: 14, blocking: true, impact: 4,
     category: 'Product',
     question: 'Can a user get the final appeal letter out of the app — is copy-to-clipboard sufficient, or do they need a formatted PDF or DOCX export?',
     state: 'DraftPanel has a "Copy to Clipboard" button. No PDF/DOCX export exists. Draft is displayed in an editable monospace textarea.',
     owner: 'Product / Open',
-    risk: 'Legal professionals submit appeals via fax, certified mail, or portal upload — all requiring a formatted document. Copy-paste into Word is tolerable for a first session but must be validated. Ask before the session: "What format do you need the output in?"',
+    risk: 'Billing managers submit appeals via fax, certified mail, or insurer portal upload — all requiring a formatted document. Copy-paste into Word is tolerable for a first session but must be validated. Ask before the session: "What format do you need the output in?"',
   },
   {
-    n: 13, blocking: true, impact: 4,
+    n: 15, blocking: true, impact: 4,
     category: 'AI & Accuracy',
     question: 'What happens when any AI route returns malformed JSON — does the app catch and surface it cleanly, or does it throw a runtime error in the panel?',
     state: 'Some API routes use JSON.parse() without try/catch for AI responses. Claude occasionally wraps JSON in markdown code fences, which breaks JSON.parse(). Panel components catch fetch errors but not parse failures.',
@@ -108,7 +124,7 @@ const questions = [
     risk: null,
   },
   {
-    n: 14, blocking: true, impact: 4,
+    n: 16, blocking: true, impact: 4,
     category: 'Legal & Compliance',
     question: 'Do we need to communicate a data retention and deletion policy — specifically, what happens to case data and how long we hold anything on our servers?',
     state: 'localStorage keeps data client-side indefinitely. Anthropic API calls send content to Anthropic\'s servers — their retention policy applies. We have no server-side storage. No policy document exists.',
@@ -116,7 +132,15 @@ const questions = [
     risk: 'Minimum action: one paragraph in ToS explaining (a) case data is stored in the user\'s browser only, (b) AI features transmit content to Anthropic (link their privacy policy), (c) we do not retain case data on our servers.',
   },
   {
-    n: 15, blocking: true, impact: 3,
+    n: 17, blocking: true, impact: 4,
+    category: 'Legal & Compliance',
+    question: 'Does building pre-certification filing into the platform create regulatory exposure under state insurance law or federal billing regulations — including False Claims Act or anti-kickback statute risk?',
+    state: 'Not assessed. Pre-auth assistance sits in a different regulatory category than appeal preparation. Helping a practice file a prior authorization is closer to billing-agent territory. No healthcare billing counsel has reviewed the pre-auth scope.',
+    owner: 'Attorney / Business-Legal',
+    risk: 'Pre-authorization is a regulated activity in some states. Submitting incorrect or inflated pre-auth requests via AI error — even inadvertently — could expose the practice to False Claims Act risk if the procedure is Medicare/Medicaid-covered. Healthcare billing counsel review is required before the pre-cert module goes live for production use.',
+  },
+  {
+    n: 18, blocking: true, impact: 3,
     category: 'Go-to-Market',
     question: 'Do we have a mechanism to collect structured feedback from the first user during and after the session — or are we relying on informal notes?',
     state: 'Nothing. No in-app feedback widget, no post-session survey, no session recording consent.',
@@ -124,7 +148,7 @@ const questions = [
     risk: null,
   },
   {
-    n: 16, blocking: true, impact: 3,
+    n: 19, blocking: true, impact: 3,
     category: 'Data & Privacy',
     question: 'Does the app work when the user opens it on a different computer or browser — and do we tell them upfront that it doesn\'t?',
     state: 'localStorage is browser-specific. A user who creates matters on Chrome cannot access them on Firefox or another machine. No warning exists.',
@@ -133,55 +157,87 @@ const questions = [
   },
   // ── BLOCKING: NO ───────────────────────────────────────────────────────────
   {
-    n: 17, blocking: false, impact: 5,
+    n: 20, blocking: false, impact: 5,
     category: 'Business Model',
-    question: 'Do we charge per matter, per seat (user), or per firm — and does the answer fundamentally change our data model?',
+    question: 'Do we charge per matter, per seat (user), or per practice — and does the answer fundamentally change our data model?',
     state: 'No pricing exists. localStorage means there is no per-matter server-side tracking.',
     owner: 'Business-Legal / Product',
     risk: null,
   },
   {
-    n: 18, blocking: false, impact: 5,
+    n: 21, blocking: false, impact: 5,
     category: 'Technical Infrastructure',
-    question: 'When do we introduce auth — and what is the minimum viable auth setup (magic link, Google OAuth, or firm SSO)?',
+    question: 'When do we introduce auth — and what is the minimum viable auth setup (magic link, Google OAuth, or practice SSO)?',
     state: 'No auth. Explicitly deferred for v1 prototype.',
     owner: 'Engineer / Product',
     risk: null,
   },
   {
-    n: 19, blocking: false, impact: 4,
+    n: 22, blocking: false, impact: 5,
+    category: 'Business Model',
+    question: 'What is the right revenue model for OBL owners and practice billing managers — per-authorization, per-appeal, monthly SaaS per seat, or a percentage of recovered revenue?',
+    state: 'No pricing exists. OBL practices may respond better to a model tied directly to recovered revenue or a monthly flat fee per practice. John Lee indicated the value is clear for high-value procedures ($1,500–$4,000+ per procedure). Per-recovered-dollar models align incentives but complicate accounting and may trigger financial regulation review.',
+    owner: 'Business-Legal / Product',
+    risk: null,
+  },
+  {
+    n: 23, blocking: false, impact: 4,
     category: 'AI & Accuracy',
     question: 'Should we disclose which AI model processes case content (claude-sonnet-4-6) and on what basis it makes classifications?',
     state: 'Not disclosed anywhere in the app. The model name is hardcoded in API routes.',
     owner: 'Product / Business-Legal',
-    risk: 'Some law firms and healthcare orgs have approved vendor lists and model-specific policies. Disclosure builds trust and avoids surprises.',
+    risk: 'Some healthcare organizations have approved vendor lists and model-specific policies. Disclosure builds trust and avoids surprises with OBL owners who want to understand what is processing their patients\' information.',
   },
   {
-    n: 20, blocking: false, impact: 4,
+    n: 24, blocking: false, impact: 4,
     category: 'Product',
-    question: 'Should the app support multiple users on the same matter (attorney + case manager both editing), or is it strictly single-user per matter?',
+    question: 'Should the app support multiple users on the same matter — OBL owner and billing manager both accessing the same case — or is it strictly single-user per matter?',
     state: 'localStorage is per-browser. No concept of sharing or collaboration. Single-user only.',
     owner: 'Product / Open',
     risk: null,
   },
   {
-    n: 21, blocking: false, impact: 4,
+    n: 25, blocking: false, impact: 4,
     category: 'Legal & Compliance',
-    question: 'Should ClearIQ maintain an audit log of what AI suggested vs. what the attorney actually submitted — for malpractice defense purposes?',
-    state: 'No audit logging. The draft is editable plain text with no version history.',
-    owner: 'Attorney / Business-Legal',
-    risk: 'If an attorney is sued for a bad appeal, they may want to show the AI flagged missing facts and they acted on them. An immutable audit trail could be a selling point, not just a compliance requirement. Consider draft snapshots in v2.',
+    question: 'Should ClearIQ maintain an audit log of what AI suggested vs. what the billing manager actually submitted — for error tracking and liability defense purposes?',
+    state: 'No audit logging. The draft is editable plain text with no version history. If a billing manager modifies an AI-generated appeal before submission, there is no record of what changed.',
+    owner: 'Business-Legal / Product',
+    risk: 'If a billing manager submits an appeal or pre-auth materially different from what ClearIQ generated, an audit trail protects us from liability claims. Consider draft snapshots in v2.',
   },
   {
-    n: 22, blocking: false, impact: 4,
+    n: 26, blocking: false, impact: 4,
     category: 'AI & Accuracy',
-    question: 'Should the AI extract facts from uploaded PDFs (scanned denial letters, medical records) or is text-paste the only input method?',
-    state: 'All input is text-paste only. No file upload exists.',
+    question: 'John Lee offered to share EOBs from his OBL to calibrate reimbursement intelligence. How do we use this data safely — what de-identification is required, and what can we build from real EOB data without creating PHI exposure?',
+    state: 'EOB data contains insurer-specific reimbursement amounts per procedure code, approval/denial patterns, and payment timelines. This is exactly the calibration data needed to build payer × procedure reimbursement profiles. John offered to share it. No de-identification protocol exists. No process for ingesting this data has been designed.',
+    owner: 'Engineer / Business-Legal',
+    risk: null,
+  },
+  {
+    n: 27, blocking: false, impact: 4,
+    category: 'AI & Accuracy',
+    question: 'Should the AI extract facts from uploaded PDFs (scanned denial letters, EOBs, medical records) or is text-paste the only input method?',
+    state: 'All input is text-paste only. No file upload exists. John Lee offered to share EOBs from his lab — these are likely PDF or portal exports, not pasted text.',
     owner: 'Product / Engineer',
     risk: null,
   },
   {
-    n: 23, blocking: false, impact: 3,
+    n: 28, blocking: false, impact: 3,
+    category: 'Go-to-Market',
+    question: 'John Lee\'s NIAC manager handles NY patients. Should New York be the explicit first geographic market, and does this require state-specific compliance review for the pre-auth scope?',
+    state: 'John offered to connect George with his NIAC manager who handles NY patients. NY commercial payer landscape is distinct — BCBS NY, United Health NY, Empire, Healthfirst — and NY has specific external appeal rights under EIPA. Geographic focus on NY is aligned but not yet formalized in any product or legal document.',
+    owner: 'Product / Business-Legal',
+    risk: null,
+  },
+  {
+    n: 29, blocking: false, impact: 3,
+    category: 'Product',
+    question: 'Should pre-authorization requirement templates be structured procedure-first (atherectomy template, IVUS template) or payer-first (UnitedHealth template, Aetna template) — or a cross-reference matrix of both?',
+    state: 'John\'s practice performs atherectomy, stents, balloon angioplasty, genicular embolization, venous stents, and IVUS across multiple NY-based insurers — each with different documentation requirements for the same procedure. The pre-auth intelligence feature needs: for procedure X with payer Y, what documentation is required? The data model has not been designed.',
+    owner: 'Product / Engineer',
+    risk: null,
+  },
+  {
+    n: 30, blocking: false, impact: 3,
     category: 'Product',
     question: 'What is the "done" state for a completed matter — does it archive, export to a file, or stay in the dashboard forever?',
     state: 'Matters persist in localStorage indefinitely. ReviewChecklist has a finalReviewComplete flag but nothing happens when it is checked.',
@@ -189,23 +245,15 @@ const questions = [
     risk: null,
   },
   {
-    n: 24, blocking: false, impact: 3,
+    n: 31, blocking: false, impact: 3,
     category: 'UX & Workflow',
-    question: 'Should the StrengthMap include a confidence score or visual heat map across the 6 categories — or is drag-and-drop categorization sufficient as the orientation view?',
+    question: 'Should the StrengthMap include a confidence score or visual heat map across appeal categories — or is drag-and-drop categorization sufficient as the orientation view?',
     state: 'StrengthMap shows fact counts per category and a summary bar. No scoring or heat map.',
     owner: 'Product / Open',
     risk: null,
   },
   {
-    n: 25, blocking: false, impact: 3,
-    category: 'Go-to-Market',
-    question: 'Who is the first user — do we already have a specific attorney or advocate in mind, or do we need to recruit one?',
-    state: 'Not defined. No outreach has been drafted.',
-    owner: 'Open / Business-Legal',
-    risk: null,
-  },
-  {
-    n: 26, blocking: false, impact: 2,
+    n: 32, blocking: false, impact: 2,
     category: 'Technical Infrastructure',
     question: 'Do we need rate limiting on AI API routes to prevent runaway costs if someone hammer-clicks Analyze or Generate Draft repeatedly?',
     state: 'No rate limiting. Buttons are disabled during loading state (client-side guard only). No server-side guard.',
@@ -213,10 +261,10 @@ const questions = [
     risk: null,
   },
   {
-    n: 27, blocking: false, impact: 2,
+    n: 33, blocking: false, impact: 2,
     category: 'Go-to-Market',
-    question: 'Is app.appealiq.ngengwe.com the right domain for the first real user session — or does it need to be under a more professional standalone domain?',
-    state: 'appealiq.ngengwe.com is the landing page domain. app.appealiq.ngengwe.com is the target app domain. Not yet live.',
+    question: 'Is app.appealiq.ngengwe.com the right domain for the first real user session — or does it need to be under a standalone ClearIQ domain?',
+    state: 'appealiq.ngengwe.com is the landing page domain. app.appealiq.ngengwe.com is the target app domain. Not yet live. The product has been renamed ClearIQ. Domain alignment with the new brand has not been addressed.',
     owner: 'Business-Legal / Product',
     risk: null,
   },
@@ -253,14 +301,18 @@ const pasteText = `ClearIQ — PRE-FIRST-USER RESEARCH QUESTIONS
 ==============================================
 
 CONTEXT
-ClearIQ is an AI-assisted health insurance appeal preparation workspace for legal-medical teams (attorneys, patient advocates, case managers). The MVP is fully built: 6 workspace steps (denial analysis, intake & interview, appeal strength map, argument builder, appeal draft, review checklist), 4 AI API routes powered by Claude claude-sonnet-4-6, localStorage persistence, no auth, no backend. The target milestone is: a working session with a real legal-medical user on real (non-PHI test) appeals.
+ClearIQ is an authorization and reimbursement platform for OBL owners, cardiologists, and practice billing/auth managers. The product scope has expanded from post-denial appeal preparation to a full pre-certification-to-reimbursement pipeline: pre-auth filing, auth status tracking, denial detection, appeal generation, clinical documentation review, and reimbursement recovery.
+
+First POC context: John Lee (cardiologist, OBL owner, New York) has agreed to serve as the proof-of-concept practice. His office manager Sarah Hudkin is the primary daily user — she currently writes appeal letters manually and manages pre-certifications. John has offered to share EOBs from his lab to calibrate the system. Key procedures: atherectomy, stents, balloon angioplasty, genicular embolization, venous stents, IVUS. Target reimbursement range: ~$1,500/procedure (venous) to $4,000+/procedure (arterial).
+
+The MVP app was built on the original appeal-preparation scope: 6 workspace steps (denial analysis, intake & interview, appeal strength map, argument builder, appeal draft, review checklist), 4 AI API routes powered by Claude claude-sonnet-4-6, localStorage persistence, no auth, no backend. Target milestone: NDA-covered research session with John Lee's practice using de-identified or synthetic cases.
 
 WHAT WE NEED FROM YOU
 For each question below, research and provide:
 1. A recommended answer or decision, with clear reasoning
-2. Relevant laws, regulations, bar association rules, or regulatory precedents (cite specifically)
+2. Relevant laws, regulations, or regulatory precedents (cite specifically)
 3. What comparable legal-tech, health-tech, or AI tools have done in practice
-4. Any flags or caveats specific to the intersection of healthcare, legal services, and AI
+4. Any flags or caveats specific to the intersection of healthcare, billing regulations, and AI
 5. A concrete next action — what specifically should be built, written, or decided, and by whom
 
 Group your response by the same categories used below. Flag any question where the wrong answer creates legal or compliance risk.
@@ -301,19 +353,20 @@ END OF QUESTIONS
     <header class="page-header">
       <div class="container">
         <div class="header-logo">
-          <span class="logo-mark">A</span>
-          <span class="logo-text">Appeal<span style="color:var(--teal)">-IQ</span></span>
+          <span class="logo-mark">C</span>
+          <span class="logo-text">Clear<span style="color:var(--teal)">IQ</span></span>
         </div>
         <h1>Pre-First-User Discovery Framework</h1>
         <p class="header-sub">
-          Every decision we must make before the first working session with a real legal-medical user.
-          27 questions across 8 categories, sorted by blocking status then impact.
+          Every decision we must make before the first working session with a real user from John Lee's OBL practice.
+          33 questions across 8 categories, sorted by blocking status then impact.
+          Updated to reflect the full pre-certification-to-reimbursement scope.
         </p>
         <div class="header-meta">
-          <span class="meta-chip meta-blocking">16 Blocking</span>
-          <span class="meta-chip meta-defer">11 Deferrable</span>
+          <span class="meta-chip meta-blocking">19 Blocking</span>
+          <span class="meta-chip meta-defer">14 Deferrable</span>
           <span class="meta-chip meta-neutral">8 Categories</span>
-          <span class="meta-chip meta-neutral">Generated June 2026</span>
+          <span class="meta-chip meta-neutral">Updated June 2026</span>
         </div>
       </div>
     </header>
@@ -346,7 +399,7 @@ END OF QUESTIONS
             <div class="section-label">Deep Research Prompt</div>
             <h2 class="paste-title">Copy & paste into any deep research AI</h2>
             <p class="paste-sub">
-              All 27 questions, pre-formatted with context, instructions, and current state.
+              All 33 questions, pre-formatted with context, instructions, and current state.
               Works with Perplexity Deep Research, ChatGPT, Gemini, or any long-context model.
             </p>
           </div>
@@ -367,7 +420,7 @@ END OF QUESTIONS
       <section class="qs-section">
         <div class="section-divider blocking">
           <div class="divider-badge blocking">Blocking — YES</div>
-          <p class="divider-sub">These 16 questions must be answered before any real user touches the app.</p>
+          <p class="divider-sub">These 19 questions must be answered before any real user touches the app.</p>
         </div>
 
         <div class="qs-list">
@@ -418,7 +471,7 @@ END OF QUESTIONS
       <section class="qs-section">
         <div class="section-divider defer">
           <div class="divider-badge defer">Not Blocking — Deferrable</div>
-          <p class="divider-sub">These 11 questions shape v2 architecture, pricing, and go-to-market. Answer them before building the next layer.</p>
+          <p class="divider-sub">These 14 questions shape v2 architecture, pricing, and go-to-market. Answer them before building the next layer.</p>
         </div>
 
         <div class="qs-list">
@@ -478,11 +531,11 @@ END OF QUESTIONS
           </thead>
           <tbody>
             {[
-              ['Blocking — Impact 5', '7', 'All must be resolved'],
-              ['Blocking — Impact 4', '6', 'All must be resolved'],
-              ['Blocking — Impact 3', '3', 'Should be resolved'],
-              ['Non-blocking — Impact 5', '2', 'Decide before building auth / backend'],
-              ['Non-blocking — Impact 4', '3', 'Validate or decide during session 1'],
+              ['Blocking — Impact 5', '9', 'All must be resolved'],
+              ['Blocking — Impact 4', '8', 'All must be resolved'],
+              ['Blocking — Impact 3', '2', 'Should be resolved'],
+              ['Non-blocking — Impact 5', '3', 'Decide before building auth / backend'],
+              ['Non-blocking — Impact 4', '5', 'Validate or decide during session 1'],
               ['Non-blocking — Impact 2–3', '6', 'Post-session backlog'],
             ].map(([bucket, count, action]) => (
               <tr>
@@ -495,11 +548,12 @@ END OF QUESTIONS
         </table>
 
         <div class="critical-path">
-          <div class="section-label">Critical path — 4 decisions that could end the project</div>
+          <div class="section-label">Critical path — 5 decisions that could end the project</div>
           {[
+            'Execute a BAA with John Lee\'s practice before any pre-auth or real PHI data is processed — HIPAA requires it.',
             'Get a ToS + disclaimer acknowledgment gate live — no exceptions.',
             'Add Anthropic API transmission disclosure — no exceptions.',
-            'Validate denial analysis accuracy on real denial letters with someone who knows appeals.',
+            'Validate denial analysis accuracy on real OBL denial letters (atherectomy, stents, IVUS) before any real user session.',
             'Add matter export (JSON backup) so browser data loss does not kill the session.',
           ].map((item, i) => (
             <div class="crit-item">

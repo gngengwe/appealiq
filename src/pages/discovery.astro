@@ -239,6 +239,49 @@ const categoryColors: Record<string, { bg: string; text: string }> = {
 function stars(n: number): string {
   return '★'.repeat(n) + '☆'.repeat(5 - n);
 }
+
+// ── Deep-research paste text ──────────────────────────────────────
+const blockingLines = blocking.map(q =>
+  `[${q.category} — Impact ${q.impact}/5 — BLOCKING]\nQ${String(q.n).padStart(2,'0')}: ${q.question}\nCurrent state: ${q.state}${q.risk ? `\nRisk note: ${q.risk}` : ''}`
+).join('\n\n');
+
+const deferLines = notBlocking.map(q =>
+  `[${q.category} — Impact ${q.impact}/5]\nQ${String(q.n).padStart(2,'0')}: ${q.question}\nCurrent state: ${q.state}${q.risk ? `\nRisk note: ${q.risk}` : ''}`
+).join('\n\n');
+
+const pasteText = `APPEAL-IQ — PRE-FIRST-USER RESEARCH QUESTIONS
+==============================================
+
+CONTEXT
+Appeal-IQ is an AI-assisted health insurance appeal preparation workspace for legal-medical teams (attorneys, patient advocates, case managers). The MVP is fully built: 6 workspace steps (denial analysis, intake & interview, appeal strength map, argument builder, appeal draft, review checklist), 4 AI API routes powered by Claude claude-sonnet-4-6, localStorage persistence, no auth, no backend. The target milestone is: a working session with a real legal-medical user on real (non-PHI test) appeals.
+
+WHAT WE NEED FROM YOU
+For each question below, research and provide:
+1. A recommended answer or decision, with clear reasoning
+2. Relevant laws, regulations, bar association rules, or regulatory precedents (cite specifically)
+3. What comparable legal-tech, health-tech, or AI tools have done in practice
+4. Any flags or caveats specific to the intersection of healthcare, legal services, and AI
+5. A concrete next action — what specifically should be built, written, or decided, and by whom
+
+Group your response by the same categories used below. Flag any question where the wrong answer creates legal or compliance risk.
+
+==============================================
+SECTION 1: BLOCKING QUESTIONS
+Must answer before any real user session
+==============================================
+
+${blockingLines}
+
+==============================================
+SECTION 2: NON-BLOCKING QUESTIONS
+Important but deferrable — answer before building the next layer
+==============================================
+
+${deferLines}
+
+==============================================
+END OF QUESTIONS
+==============================================`;
 ---
 
 <Layout
@@ -293,6 +336,30 @@ function stars(n: number): string {
               <span class="rubric-desc">{desc}</span>
             </div>
           ))}
+        </div>
+      </section>
+
+      <!-- Deep research paste section -->
+      <section class="paste-section">
+        <div class="paste-header">
+          <div>
+            <div class="section-label">Deep Research Prompt</div>
+            <h2 class="paste-title">Copy & paste into any deep research AI</h2>
+            <p class="paste-sub">
+              All 27 questions, pre-formatted with context, instructions, and current state.
+              Works with Perplexity Deep Research, ChatGPT, Gemini, or any long-context model.
+            </p>
+          </div>
+          <button class="copy-btn" id="copyBtn" data-text={pasteText}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <span id="copyLabel">Copy all</span>
+          </button>
+        </div>
+        <div class="paste-box-wrap">
+          <pre class="paste-box" id="pasteBox">{pasteText}</pre>
         </div>
       </section>
 
@@ -651,6 +718,52 @@ function stars(n: number): string {
   }
   .crit-text { font-size: 0.9rem; color: #991B1B; font-weight: 500; line-height: 1.5; }
 
+  /* ── Deep research paste section ────────────────────── */
+  .paste-section {
+    padding: 56px 0 0;
+  }
+  .paste-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap; margin-bottom: 20px;
+  }
+  .paste-title {
+    font-family: var(--font-serif); font-size: 1.5rem;
+    color: var(--navy-dark); margin-bottom: 8px; margin-top: 4px;
+  }
+  .paste-sub {
+    font-size: 0.875rem; color: var(--text-mid);
+    max-width: 560px; line-height: 1.6;
+  }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--navy-dark); color: white;
+    font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600;
+    padding: 11px 20px; border-radius: var(--radius); border: none;
+    cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .copy-btn:hover { background: var(--navy-mid); transform: translateY(-1px); }
+  .copy-btn:active { transform: translateY(0); }
+  .copy-btn.copied { background: #065F46; }
+  .paste-box-wrap {
+    background: var(--navy-dark); border-radius: var(--radius-lg);
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; position: relative;
+  }
+  .paste-box {
+    font-family: 'Menlo', 'Consolas', 'Monaco', monospace;
+    font-size: 0.78rem; line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    white-space: pre-wrap; word-break: break-word;
+    padding: 28px 28px; margin: 0;
+    max-height: 420px; overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+  .paste-box::-webkit-scrollbar { width: 6px; }
+  .paste-box::-webkit-scrollbar-track { background: transparent; }
+  .paste-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
   /* ── Footer ──────────────────────────────────────────── */
   .page-footer {
     background: var(--navy-dark);
@@ -670,3 +783,33 @@ function stars(n: number): string {
     .summary-table th, .summary-table td { padding: 10px 12px; }
   }
 </style>
+
+<script>
+  const btn = document.getElementById('copyBtn') as HTMLButtonElement | null;
+  const label = document.getElementById('copyLabel');
+  if (btn && label) {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.text || '';
+      try {
+        await navigator.clipboard.writeText(text);
+        label.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          label.textContent = 'Copy all';
+          btn.classList.remove('copied');
+        }, 2500);
+      } catch {
+        // fallback: select the pre text
+        const pre = document.getElementById('pasteBox');
+        if (pre) {
+          const range = document.createRange();
+          range.selectNode(pre);
+          window.getSelection()?.removeAllRanges();
+          window.getSelection()?.addRange(range);
+        }
+        label.textContent = 'Selected — Ctrl+C to copy';
+        setTimeout(() => { label.textContent = 'Copy all'; }, 3000);
+      }
+    });
+  }
+</script>
